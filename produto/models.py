@@ -9,3 +9,7 @@ class Produto(models.Model):
     preco = models.DecimalField(null=False, max_digits=50,decimal_places=2)
     categoria = models.ForeignKey(Categoria, on_delete=models.PROTECT)
     date = models.DateTimeField(default=datetime.now, blank=True)
+
+    # Class Meta ser ver para aplicar regras na sua tabela
+    class Meta:
+        db_table = "Produto"
