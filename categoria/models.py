@@ -5,3 +5,7 @@ class Categoria(models.Model):
 
     class Meta:
         db_table = "Categoria"
+
+    def __str__(self):
+        return self.nome
+    

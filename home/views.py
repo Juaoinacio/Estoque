@@ -4,7 +4,7 @@ from django.contrib import messages
 
 def index(request):
     try:
-        if request.method == "GET":        
+        if request.method == "GET":
             return render(request, "home.html")
         messages.error(request, _("Método Http não permitido!"))
     except Exception as e:
