@@ -3,5 +3,55 @@
 {% block title %}Home{% endblock title %}
 
 {% block content %}
-    
-{% endblock  %}
+    {% if categorias %}
+        
+        <div class="border mt-12">
+            <div class="relative overflow-x-auto">
+                <table class="w-full text-sm text-left rtl:text-right text-gray-500">
+                    <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                        
+                        <tr>
+                            <th scope="col" class="px-6 py-3">
+                                Produto
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Codigo de barras
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Categoria
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Quantidade
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Preço
+                            </th>
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for categoria in categorias %}
+                        <tr class="bg-white border-b border-gray-200">
+                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                                
+                            </th>
+                            <td class="px-6 py-4">
+                                
+                            </td>
+                            <td class="px-6 py-4">
+                                {{categoria.nome}}
+                            </td>
+                            <td class="px-6 py-4">
+                                
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+    {% else %}
+        <p>Nenhuma categoria cadastrada.</p>
+    {% endif %}
+{% endblock %}
