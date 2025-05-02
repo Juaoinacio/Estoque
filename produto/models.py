@@ -13,3 +13,8 @@ class Produto(models.Model):
     # Class Meta ser ver para aplicar regras na sua tabela
     class Meta:
         db_table = "Produto"
+
+    def __str__(self):
+        return f"Nome: {self.nome} - QTD: {self.quantidade} "
+
+        

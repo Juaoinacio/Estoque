@@ -3,7 +3,7 @@
 {% block title %}Home{% endblock title %}
 
 {% block content %}
-    {% if categorias %}
+    {% if produtos %}
         
         <div class="border mt-12">
             <div class="relative overflow-x-auto">
@@ -30,19 +30,22 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {% for categoria in categorias %}
+                        {% for produto in produtos %}
                         <tr class="bg-white border-b border-gray-200">
                             <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                                
+                                {{produto.nome}}
                             </th>
                             <td class="px-6 py-4">
-                                
+                                {{produto.cod_barras}}
                             </td>
                             <td class="px-6 py-4">
-                                {{categoria.nome}}
+                                {{produto.categoria.nome}}
                             </td>
                             <td class="px-6 py-4">
-                                
+                                {{produto.quantidade}}
+                            </td>
+                            <td class="px-6 py-4">
+                                {{produto.preco}}
                             </td>
                         </tr>
                         {% endfor %}
