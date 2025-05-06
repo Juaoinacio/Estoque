@@ -1,60 +1,43 @@
 {% extends "base.html" %}
 
-{% block title %}Home{% endblock title %}
+{% block title %}Sistema de estoque WEB{% endblock title %}
 
 {% block content %}
     {% if produtos %}
-        
-        <div class="border mt-12">
-            <div class="relative overflow-x-auto">
-                <table class="w-full text-sm text-left rtl:text-right text-gray-500">
-                    <thead class="text-xs text-gray-700 uppercase bg-gray-50">
-                        
-                        <tr>
-                            <th scope="col" class="px-6 py-3">
-                                Produto
-                            </th>
-                            <th scope="col" class="px-6 py-3">
-                                Codigo de barras
-                            </th>
-                            <th scope="col" class="px-6 py-3">
-                                Categoria
-                            </th>
-                            <th scope="col" class="px-6 py-3">
-                                Quantidade
-                            </th>
-                            <th scope="col" class="px-6 py-3">
-                                Preço
-                            </th>
-                            
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for produto in produtos %}
-                        <tr class="bg-white border-b border-gray-200">
-                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                                {{produto.nome}}
-                            </th>
-                            <td class="px-6 py-4">
-                                {{produto.cod_barras}}
-                            </td>
-                            <td class="px-6 py-4">
-                                {{produto.categoria.nome}}
-                            </td>
-                            <td class="px-6 py-4">
-                                {{produto.quantidade}}
-                            </td>
-                            <td class="px-6 py-4">
-                                {{produto.preco}}
-                            </td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
+    {% comment %} Tabela que imprime meus produtos para a tela home{% endcomment %}
+        <div class="m-12 overflow-x-auto border-2 rounded-md">
+            <table class="w-full text-sm text-left text-gray-500">
+                <thead class="text-xs text-gray-700 uppercase bg-gray-100">
+                    <tr>
+                        <th class="px-6 py-3">Produto</th>
+                        <th class="px-6 py-3">Código de Barras</th>
+                        <th class="px-6 py-3">Categoria</th>
+                        <th class="px-6 py-3">Quantidade</th>
+                        <th class="px-6 py-3">Preço</th>
+                        <th class="px-6 py-3">Entrada</th>
+                        <th class="px-6 py-3">Saída</th>
+                        <th class="px-6 py-3">Editar</th>
+                        <th class="px-6 py-3">Deletar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for produto in produtos %}
+                    <tr class="bg-white border-b border-gray-200">
+                        <td class="px-6 py-4">{{ produto.nome }}</td>
+                        <td class="px-6 py-4">{{ produto.cod_barras }}</td>
+                        <td class="px-6 py-4">{{ produto.categoria.nome }}</td>
+                        <td class="px-6 py-4">{{ produto.quantidade }}</td>
+                        <td class="px-6 py-4">R$ {{ produto.preco }}</td>
+                        <td class="px-6 py-4">{{ produto.date|date:"d/m/Y H:i" }}</td>
+                        <td class="px-6 py-4">{{ produto.date|date:"d/m/Y H:i" }}</td>
+                        <td class="px-6 py-4"><a href="#" class="bg-yellow-500 hover:bg-yellow-600 text-white font-semibold py-1 px-3 rounded">Editar</td>
+                        <td class="px-6 py-4"><a href="#" class="bg-red-500 hover:bg-red-600 text-white font-semibold py-1 px-3 rounded">Deletar</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
         </div>
-        
     {% else %}
-        <p>Nenhuma categoria cadastrada.</p>
+        <p>Nenhum produto cadastrado</p>
     {% endif %}
 {% endblock %}

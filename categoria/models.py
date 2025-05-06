@@ -7,5 +7,5 @@ class Categoria(models.Model):
         db_table = "Categoria"
 
     def __str__(self):
-        return f"Categoria: {self.nome}"
+        return self.nome
     
