@@ -3,7 +3,9 @@
 {% block title %}Sistema de estoque WEB{% endblock title %}
 
 {% block content %}
+
     {% if produtos %}
+    
     {% comment %} Tabela que imprime meus produtos para a tela home{% endcomment %}
         <div class="m-12 overflow-x-auto border-2 rounded-md">
             <table class="w-full text-sm text-left text-gray-500">
@@ -40,4 +42,52 @@
     {% else %}
         <p>Nenhum produto cadastrado</p>
     {% endif %}
+
+    <form method="POST" action="{% url 'home' %}" class="p-6 bg-white rounded-lg shadow-md w-full max-w-4xl mx-auto">
+        {% csrf_token %}
+        <div class="grid grid-cols-5 gap-6">
+            <!-- Campo 1 -->
+            <div>
+                <label for="nome1" class="block mb-1 text-sm font-medium text-gray-700">Codigo de Barras:</label>
+                <input type="text" name="cod_barras" id="nome1" class="w-full p-2 border border-gray-300 rounded-lg text-sm bg-gray-50 focus:ring-blue-500 focus:border-blue-500">
+            </div>
+    
+            <!-- Campo 2 -->
+            <div>
+                <label for="nome2" class="block mb-1 text-sm font-medium text-gray-700">Nome:</label>
+                <input type="text" name="nome" id="nome2" class="w-full p-2 border border-gray-300 rounded-lg text-sm bg-gray-50 focus:ring-blue-500 focus:border-blue-500">
+            </div>
+    
+            <!-- Campo 3 -->
+            <div>
+                <label for="nome3" class="block mb-1 text-sm font-medium text-gray-700">Quantidade:</label>
+                <input type="text" name="quantidade" id="nome3" class="w-full p-2 border border-gray-300 rounded-lg text-sm bg-gray-50 focus:ring-blue-500 focus:border-blue-500">
+            </div>
+    
+            <!-- Campo 4 -->
+            <div>
+                <label for="nome4" class="block mb-1 text-sm font-medium text-gray-700">Preço:</label>
+                <input type="text" name="preco" id="nome4" class="w-full p-2 border border-gray-300 rounded-lg text-sm bg-gray-50 focus:ring-blue-500 focus:border-blue-500">
+            </div>
+
+            <!-- Campo 5 -->
+            <div>
+                <label for="categoria" class="block mb-2 text-sm font-medium text-gray-700">Categoria:</label>
+                <select name="categoria" id="categoria" class="w-full p-2 border border-gray-300 rounded-lg bg-gray-50 text-sm focus:ring-blue-500 focus:border-blue-500">
+        
+                {% for c in categorias %}
+                    <option value="{{ c.id }}">{{ c.nome }}</option>
+                {% endfor %}
+                </select>
+            </div>
+
+        </div>
+    
+        <!-- Botão -->
+        <div class="mt-6 text-right">
+            <button type="submit" value="cadastar produto" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-semibold">
+                Salvar
+            </button>
+        </div>
+    </form>
 {% endblock %}
