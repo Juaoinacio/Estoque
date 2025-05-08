@@ -1,44 +1,63 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from produto.models import Produto, Categoria
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 
+
+# Tela inicial
 def index(request):
     try:
+        # Metodo GET da minha url ""
         if request.method == "GET":
             produtos = Produto.objects.all()
             categorias = Categoria.objects.all()
             messages.error(request, ("Método Http não permitido!"))
             return render(request, "home.html", {'produtos': produtos, 'categorias': categorias})
+        
+        # Metodo POST da minha url ""
         elif request.method == "POST":
+            
+            # Anotação: cod_barras = Tabela do banco vazia (modelo Produto)
+            # (request.POST.get("cod_barras", 0)) = O que eu recebo do Front-end
 
             cod_barras =  (request.POST.get("cod_barras", 0))
             nome =  (request.POST.get("nome", 0))
             quantidade =  (request.POST.get("quantidade", 0))
             preco =  (request.POST.get("preco", 0))
-            id =  (request.POST.get("categoria", 0))
+            id_categoria =  (request.POST.get("id_categoria", 0)) # id que vem da minha categoria, assim sabemos qual categoria esse produto é.
             
+            # Cria um novo objeto Produto com os dados recebidos do formulário
             produto = Produto(
                 cod_barras = cod_barras,
                 nome = nome,
                 quantidade = quantidade,
                 preco = preco,
-                categoria = Categoria.objects.get(id=id)
+                categoria = Categoria.objects.get(id=id_categoria) # Busca a instância da Categoria correspondente ao ID enviado
             )
-            
-            print('oiii')
-
-            produto.save()
+    
+            produto.save() # Guarda as informações de cima no bando de dados
             return HttpResponseRedirect(reverse('home'))
     except Exception as e:
         messages.error(request, str(e))
         print(e)
         return HttpResponseRedirect(reverse('home'))
     
-def delete(request, id):
+def deletar_produto(request):
     try:
         if request.method == "POST":
-            pass
+            id = request.POST.get("id")
+            produto = get_object_or_404(Produto, id=id)
+            produto.delete()
+            return HttpResponseRedirect(reverse('home'))
+        else: 
+            messages.error(request, str(e))
+            print(e)
+            return HttpResponseRedirect(reverse('home'))
     except Exception as e:
-        pass
+        messages.error(request, str(e))
+        print(e)
+        return HttpResponseRedirect(reverse('home'))
+    
+def edit(request, id):
+    pass

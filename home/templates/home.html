@@ -6,11 +6,12 @@
 
     {% if produtos %}
     
-    {% comment %} Tabela que imprime meus produtos para a tela home{% endcomment %}
-        <div class="m-12 overflow-x-auto border-2 rounded-md">
+    <!-- Tabela que imprime os produto na home -->
+            <div class="m-12 overflow-x-auto border-2 rounded-md">
             <table class="w-full text-sm text-left text-gray-500">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-100">
                     <tr>
+                        <!-- Titulos -->
                         <th class="px-6 py-3">Produto</th>
                         <th class="px-6 py-3">Código de Barras</th>
                         <th class="px-6 py-3">Categoria</th>
@@ -23,6 +24,7 @@
                     </tr>
                 </thead>
                 <tbody>
+                    <!-- Produtos -->
                     {% for produto in produtos %}
                     <tr class="bg-white border-b border-gray-200">
                         <td class="px-6 py-4">{{ produto.nome }}</td>
@@ -33,7 +35,13 @@
                         <td class="px-6 py-4">{{ produto.date|date:"d/m/Y H:i" }}</td>
                         <td class="px-6 py-4">{{ produto.date|date:"d/m/Y H:i" }}</td>
                         <td class="px-6 py-4"><a href="#" class="bg-yellow-500 hover:bg-yellow-600 text-white font-semibold py-1 px-3 rounded">Editar</td>
-                        <td class="px-6 py-4"><a href="#" class="bg-red-500 hover:bg-red-600 text-white font-semibold py-1 px-3 rounded">Deletar</td>
+                        <td class="px-6 py-4">
+                            <form method="POST" action="{% url 'deletar_produto' %}" onsubmit="return confirm('Deseja excluir esse produto')">
+                                {% csrf_token %}
+                                <input type="hidden" name="id" value="{{produto.id}}">
+                                <button type="submit" class="bg-red-500 hover:bg-red-600 text-white font-semibold py-1 px-3 rounded">Deletar</button>
+                            </form>
+                        </td>
                     </tr>
                     {% endfor %}
                 </tbody>
@@ -43,37 +51,39 @@
         <p>Nenhum produto cadastrado</p>
     {% endif %}
 
+    <!-- Formulario de produto -->
+    
     <form method="POST" action="{% url 'home' %}" class="p-6 bg-white rounded-lg shadow-md w-full max-w-4xl mx-auto">
         {% csrf_token %}
         <div class="grid grid-cols-5 gap-6">
-            <!-- Campo 1 -->
+            <!-- Codigo de barras -->
             <div>
                 <label for="nome1" class="block mb-1 text-sm font-medium text-gray-700">Codigo de Barras:</label>
                 <input type="text" name="cod_barras" id="nome1" class="w-full p-2 border border-gray-300 rounded-lg text-sm bg-gray-50 focus:ring-blue-500 focus:border-blue-500">
             </div>
     
-            <!-- Campo 2 -->
+            <!-- Nome -->
             <div>
                 <label for="nome2" class="block mb-1 text-sm font-medium text-gray-700">Nome:</label>
                 <input type="text" name="nome" id="nome2" class="w-full p-2 border border-gray-300 rounded-lg text-sm bg-gray-50 focus:ring-blue-500 focus:border-blue-500">
             </div>
     
-            <!-- Campo 3 -->
+            <!-- Quantidade -->
             <div>
                 <label for="nome3" class="block mb-1 text-sm font-medium text-gray-700">Quantidade:</label>
                 <input type="text" name="quantidade" id="nome3" class="w-full p-2 border border-gray-300 rounded-lg text-sm bg-gray-50 focus:ring-blue-500 focus:border-blue-500">
             </div>
     
-            <!-- Campo 4 -->
+            <!-- Preço -->
             <div>
                 <label for="nome4" class="block mb-1 text-sm font-medium text-gray-700">Preço:</label>
                 <input type="text" name="preco" id="nome4" class="w-full p-2 border border-gray-300 rounded-lg text-sm bg-gray-50 focus:ring-blue-500 focus:border-blue-500">
             </div>
 
-            <!-- Campo 5 -->
+            <!-- Categoria, faz um for nas categorias usando select para exibi-las -->
             <div>
                 <label for="categoria" class="block mb-2 text-sm font-medium text-gray-700">Categoria:</label>
-                <select name="categoria" id="categoria" class="w-full p-2 border border-gray-300 rounded-lg bg-gray-50 text-sm focus:ring-blue-500 focus:border-blue-500">
+                <select name="id_categoria" id="categoria" class="w-full p-2 border border-gray-300 rounded-lg bg-gray-50 text-sm focus:ring-blue-500 focus:border-blue-500">
         
                 {% for c in categorias %}
                     <option value="{{ c.id }}">{{ c.nome }}</option>
@@ -83,7 +93,7 @@
 
         </div>
     
-        <!-- Botão -->
+        <!-- Botão para enviar os dados de cadastro de produto -->
         <div class="mt-6 text-right">
             <button type="submit" value="cadastar produto" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-semibold">
                 Salvar
