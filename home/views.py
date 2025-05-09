@@ -59,5 +59,28 @@ def deletar_produto(request):
         print(e)
         return HttpResponseRedirect(reverse('home'))
     
-def edit(request, id):
-    pass
+def editar_produto(request):
+    if request.method == "POST":
+        #Pega o id do produto
+        id = request.POST.get("id")
+
+        #Procura o produto no banco, caso de errado informa o erro 404
+        produto = get_object_or_404(Produto, id=id)
+
+        #Recebemos os atributos via POST
+        cod_barras =  (request.POST.get("cod_barras", 0))
+        nome =  (request.POST.get("nome", 0))
+        quantidade =  (request.POST.get("quantidade", 0))
+        preco =  (request.POST.get("preco", 0))
+        id_categoria =  (request.POST.get("id_categoria", 0))
+
+        #Substituimos os Valores antigos pelos novos
+        produto.cod_barras = cod_barras
+        produto.nome = nome
+        produto.quantidade = quantidade
+        produto.preco = preco
+        produto.categoria = Categoria.objects.get(id=id_categoria)
+
+        #Salva os valores no banco
+        produto.save()
+        return HttpResponseRedirect(reverse('home'))
