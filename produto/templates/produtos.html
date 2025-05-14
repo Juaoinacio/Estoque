@@ -2,76 +2,78 @@
 
 {% block title %}Sistema de estoque WEB{% endblock title %}
 
+{% block breadcrumb %} <p class="text-2xl">Produtos</p> {% endblock %} 
+
 {% block content %}
 
     {% if produtos %}
     
     <!-- Tabela que imprime os produto na home -->
-        <div class="m-12 overflow-x-auto border-2 rounded-md">
-            <table class="w-full text-sm text-left text-gray-500">
-                <thead class="text-xs text-gray-700 uppercase bg-gray-100">
-                    <tr>
-                        <!-- Titulos -->
-                        <th class="px-6 py-3">Produto</th>
-                        <th class="px-6 py-3">Código de Barras</th>
-                        <th class="px-6 py-3">Categoria</th>
-                        <th class="px-6 py-3">Quantidade</th>
-                        <th class="px-6 py-3">Status</th>
-                        <th class="px-6 py-3">Preço</th>
-                        <th class="px-6 py-3">Entrada</th>
-                        <th class="px-6 py-3">Saída</th>
-                        <th class="px-6 py-3">Editar</th>
-                        <th class="px-6 py-3">Deletar</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Produtos -->
-                    {% for produto in produtos %}
-                    <tr class="bg-white border-b border-gray-200">
-                        <td class="px-6 py-4">{{ produto.nome }}</td>
-                        <td class="px-6 py-4">{{ produto.cod_barras }}</td>
-                        <td class="px-6 py-4">{{ produto.categoria.nome }}</td>
-                        <td class="px-6 py-4">{{ produto.quantidade }}</td>
-                        {% if produto.status == "Critico" %}
-                            <td class="px-6 py-4"><span class="bg-red-100 text-red-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-sm dark:bg-red-900 dark:text-red-300">{{produto.status}}</span></td>
-                        {% elif produto.status == "Minimo" %}
-                            <td class="px-6 py-4"><span class="bg-yellow-500 text-yellow-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-sm ">{{produto.status}}</span></td>
-                        {% elif produto.status == "Normal" %}
-                            <td class="px-6 py-4"><span class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-sm">{{produto.status}}</span></td>
-                        {% else %}
-                            <td class="px-6 py-4"><span class="bg-gray-100 text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-sm">{{produto.status}}</span></td>
-                        {% endif%}
-                        <td class="px-6 py-4">R$ {{ produto.preco }}</td>
-                        <td class="px-6 py-4">{{ produto.date|date:"d/m/Y H:i" }}</td>
-                        <td class="px-6 py-4">{{ produto.date|date:"d/m/Y H:i" }}</td>
-                        <td class="px-6 py-4">
 
-                            <!-- Modal toggle -->
-                            <button class="block text-white bg-blue-700 hover:bg-blue-800 font-semibold rounded px-3 py-1 text-center" type="button" id="crud_modall"
-                                data-modal-target="crud-modal"
-                                data-modal-toggle="crud-modal"
-                                data-id="{{ produto.id }}"
-                                data-nome="{{ produto.nome }}"
-                                data-cod_barras="{{ produto.cod_barras }}"
-                                data-categoria-id="{{ produto.categoria.id }}"
-                                data-quantidade="{{ produto.quantidade }}"
-                                data-preco="{{ produto.preco }}"
-                            >
-                                Editar
-                            </button>
-                              
-                        <td class="px-6 py-4">
-                            <form method="POST" action="{% url 'deletar_produto' %}" onsubmit="return confirm('Deseja excluir esse produto')">
-                                {% csrf_token %}
-                                <input type="hidden" name="id" value="{{produto.id}}">
-                                <button type="submit" class="bg-red-500 hover:bg-red-600 text-white font-semibold py-1 px-3 rounded">Deletar</button>
-                            </form>
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
+    <table class="w-full text-sm text-left text-gray-500 row-span-4 col-span-4 p-12 border border-1">
+        <thead class="text-xs text-gray-700 uppercase bg-gray-100">
+            <tr>
+                <!-- Titulos -->
+                <th class="px-6 py-3">Produto</th>
+                <th class="px-6 py-3">Código de Barras</th>
+                <th class="px-6 py-3">Categoria</th>
+                <th class="px-6 py-3">Quantidade</th>
+                <th class="px-6 py-3">Status</th>
+                <th class="px-6 py-3">Preço</th>
+                <th class="px-6 py-3">Entrada</th>
+                <th class="px-6 py-3">Saída</th>
+                <th class="px-6 py-3">Editar</th>
+                <th class="px-6 py-3">Deletar</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Produtos -->
+            {% for produto in produtos %}
+            <tr class="bg-white border-b border-gray-200">
+                <td class="px-6 py-4">{{ produto.nome }}</td>
+                <td class="px-6 py-4">{{ produto.cod_barras }}</td>
+                <td class="px-6 py-4">{{ produto.categoria.nome }}</td>
+                <td class="px-6 py-4">{{ produto.quantidade }}</td>
+                {% if produto.status == "Critico" %}
+                    <td class="px-6 py-4"><span class="bg-red-100 text-red-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-sm dark:bg-red-900 dark:text-red-300">{{produto.status}}</span></td>
+                {% elif produto.status == "Minimo" %}
+                    <td class="px-6 py-4"><span class="bg-yellow-500 text-yellow-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-sm ">{{produto.status}}</span></td>
+                {% elif produto.status == "Normal" %}
+                    <td class="px-6 py-4"><span class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-sm">{{produto.status}}</span></td>
+                {% else %}
+                    <td class="px-6 py-4"><span class="bg-gray-100 text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-sm">{{produto.status}}</span></td>
+                {% endif%}
+                <td class="px-6 py-4">R$ {{ produto.preco }}</td>
+                <td class="px-6 py-4">{{ produto.date|date:"d/m/Y H:i" }}</td>
+                <td class="px-6 py-4">{{ produto.date|date:"d/m/Y H:i" }}</td>
+                <td class="px-6 py-4">
+
+                    <!-- Modal toggle -->
+                    <button class="block text-white bg-blue-700 hover:bg-blue-800 font-semibold rounded px-3 py-1 text-center" type="button" id="crud_modall"
+                        data-modal-target="crud-modal"
+                        data-modal-toggle="crud-modal"
+                        data-id="{{ produto.id }}"
+                        data-nome="{{ produto.nome }}"
+                        data-cod_barras="{{ produto.cod_barras }}"
+                        data-categoria-id="{{ produto.categoria.id }}"
+                        data-quantidade="{{ produto.quantidade }}"
+                        data-preco="{{ produto.preco }}"
+                    >
+                        Editar
+                    </button>
+                        
+                <td class="px-6 py-4">
+                    <form method="POST" action="{% url 'deletar_produto' %}" onsubmit="return confirm('Deseja excluir esse produto')">
+                        {% csrf_token %}
+                        <input type="hidden" name="id" value="{{produto.id}}">
+                        <button type="submit" class="bg-red-500 hover:bg-red-600 text-white font-semibold py-1 px-3 rounded">Deletar</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+        
     {% else %}
    <div class="flex items-center justify-center h-screen">
         <h1>Nenhum produto cadastrado</h1>
@@ -80,57 +82,55 @@
     {% endif %}
 
     <!-- Formulario de produto -->
-    <div class="flex items-end justify-end">
-        <div class=" bg-white rounded-lg shadow-sm p-4 w-full max-w-md mt-10 mr-50">
-            <form method="POST" action="{% url 'home' %}" class="p-4 md:p-5">
-                {% csrf_token %}
-                <div class="grid gap-4 mb-4 grid-cols-2">
-                    <!-- Codigo de barras -->
-                    <div class="col-span-2">
-                        <label for="nome1" class="block mb-1 text-sm font-medium text-gray-700 ">Codigo de Barras:</label>
-                        <input type="text" name="cod_barras" id="cod_barras" class="w-full p-2 border border-gray-300 rounded-lg text-sm bg-gray-50 focus:ring-blue-500 focus:border-blue-500" required="">
-                    </div>
-            
-                    <!-- Nome -->
-                    <div class="col-span-2">
-                        <label for="nome2" class="block mb-1 text-sm font-medium text-gray-700">Nome:</label>
-                        <input type="text" name="nome" id="nome" class="w-full p-2 border border-gray-300 rounded-lg text-sm bg-gray-50 focus:ring-blue-500 focus:border-blue-500"required="">
-                    </div>
-            
-                    <!-- Quantidade -->
-                    <div class="col-span-2 sm:col-span-1">
-                        <label for="nome3" class="block mb-1 text-sm font-medium text-gray-700">Quantidade:</label>
-                        <input type="text" name="quantidade" id="quantidade" class="w-full p-2 border border-gray-300 rounded-lg text-sm bg-gray-50 focus:ring-blue-500 focus:border-blue-500"required="">
-                    </div>
-            
-                    <!-- Preço -->
-                    <div class="col-span-2 sm:col-span-1">
-                        <label for="nome4" class="block mb-1 text-sm font-medium text-gray-700">Preço:</label>
-                        <input type="text" name="preco" id="preco" class="w-full p-2 border border-gray-300 rounded-lg text-sm bg-gray-50 focus:ring-blue-500 focus:border-blue-500"required="">
-                    </div>
-
-                    <!-- Categoria, faz um for nas categorias usando select para exibi-las -->
-                    <div class="col-span-2">
-                        <label for="categoria" class="block mb-2 text-sm font-medium text-gray-700">Categoria:</label>
-                        <select name="id_categoria" id="categoria" class="w-full p-2 border border-gray-300 rounded-lg bg-gray-50 text-sm focus:ring-blue-500 focus:border-blue-500">
-                
-                            <option value="" disabled selected>Selecionar categoria</option>
-
-                            {% for c in categorias %}
-                                <option value="{{ c.id }}">{{ c.nome }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
+    <div class=" bg-white rounded-lg shadow-sm p-4 w-full max-w-md mt-10 col-start-4 col-span-1 ">
+        <form method="POST" action="" class="p-4 md:p-5">
+            {% csrf_token %}
+            <div class="grid gap-4 mb-4 grid-cols-2">
+                <!-- Codigo de barras -->
+                <div class="col-span-2">
+                    <label for="nome1" class="block mb-1 text-sm font-medium text-gray-700 ">Codigo de Barras:</label>
+                    <input type="text" name="cod_barras" id="cod_barras" class="w-full p-2 border border-gray-300 rounded-lg text-sm bg-gray-50 focus:ring-blue-500 focus:border-blue-500" required="">
+                </div>
+        
+                <!-- Nome -->
+                <div class="col-span-2">
+                    <label for="nome2" class="block mb-1 text-sm font-medium text-gray-700">Nome:</label>
+                    <input type="text" name="nome" id="nome" class="w-full p-2 border border-gray-300 rounded-lg text-sm bg-gray-50 focus:ring-blue-500 focus:border-blue-500"required="">
+                </div>
+        
+                <!-- Quantidade -->
+                <div class="col-span-2 sm:col-span-1">
+                    <label for="nome3" class="block mb-1 text-sm font-medium text-gray-700">Quantidade:</label>
+                    <input type="text" name="quantidade" id="quantidade" class="w-full p-2 border border-gray-300 rounded-lg text-sm bg-gray-50 focus:ring-blue-500 focus:border-blue-500"required="">
+                </div>
+        
+                <!-- Preço -->
+                <div class="col-span-2 sm:col-span-1">
+                    <label for="nome4" class="block mb-1 text-sm font-medium text-gray-700">Preço:</label>
+                    <input type="text" name="preco" id="preco" class="w-full p-2 border border-gray-300 rounded-lg text-sm bg-gray-50 focus:ring-blue-500 focus:border-blue-500"required="">
                 </div>
 
-                <!-- Botão para enviar os dados de cadastro de produto -->
-                <div class="mt-6 flex justify-end">
-                    <button type="submit" value="cadastrar produto" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-semibold">
-                        Salvar
-                    </button>
+                <!-- Categoria, faz um for nas categorias usando select para exibi-las -->
+                <div class="col-span-2">
+                    <label for="categoria" class="block mb-2 text-sm font-medium text-gray-700">Categoria:</label>
+                    <select name="id_categoria" id="categoria" class="w-full p-2 border border-gray-300 rounded-lg bg-gray-50 text-sm focus:ring-blue-500 focus:border-blue-500">
+            
+                        <option value="" disabled selected>Selecionar categoria</option>
+
+                        {% for c in categorias %}
+                            <option value="{{ c.id }}">{{ c.nome }}</option>
+                        {% endfor %}
+                    </select>
                 </div>
-            </form>
-        </div>
+            </div>
+
+            <!-- Botão para enviar os dados de cadastro de produto -->
+            <div class="mt-6 flex justify-end">
+                <button type="submit" value="cadastrar produto" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-semibold">
+                    Salvar
+                </button>
+            </div>
+        </form>
     </div>
 
   <!-- Main modal -->
@@ -152,7 +152,7 @@
                 </div>
 
                 <!-- Modal body -->
-                <form method="POST" action="{% url 'editar_produto'%}" class="p-4 md:p-5">
+                <form method="POST" action=" " class="p-4 md:p-5">
                     {% csrf_token %}
                     <input type="hidden" name="id" id="modal-id">
                     <div class="grid gap-4 mb-4 grid-cols-2">

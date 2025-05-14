@@ -8,13 +8,13 @@ from django.core.exceptions import ValidationError
 
 
 def index(request):
-    minimo = Produto.objects.filter(quantidade__gte=100, quantidade__lte=200)
+    minimo = Produto.objects.filter(quantidade__range=[100, 200])
 
     valorMinimo = len(minimo)
-    critico = Produto.objects.filter(quantidade__gte=1, quantidade__lte=100)
+    critico = Produto.objects.filter(quantidade__range=[1, 100])
 
     valorCritico = len(critico)
-    zerado = Produto.objects.filter(quantidade__in=[0])
+    zerado = Produto.objects.filter(quantidade = 0)
 
     valorZerado= len(zerado)
     return render(request, "home.html", {'minimo': valorMinimo, 

@@ -26,7 +26,7 @@ def index(request):
             categorias = Categoria.objects.all()
             messages.error(request, ("Método Http não permitido!"))
             return render(request, "produtos.html", {'produtos': produtos, 'categorias': categorias})
-    
+
         # Metodo POST da minha url ""
         elif request.method == "POST":
         
@@ -36,7 +36,7 @@ def index(request):
             cod_barras = request.POST.get("cod_barras", "")
             if validar_codigo(cod_barras) == False:
                 messages.error(request, ("Apenas numeros"))
-                return HttpResponseRedirect(reverse('produto'))
+                return HttpResponseRedirect(reverse('produtos'))
 
             nome =  (request.POST.get("nome", 0))
             quantidade =  (request.POST.get("quantidade", 0))
@@ -53,27 +53,27 @@ def index(request):
             )
     
             produto.save()  # Guarda as informações de cima no bando de dados
-            return HttpResponseRedirect(reverse('produto'))
+            return HttpResponseRedirect(reverse('produtos'))
     except Exception as e:
         messages.error(request, str(e))
         print(e)
-        return HttpResponseRedirect(reverse('produto'))
+        return HttpResponseRedirect(reverse('produtos'))
 
-# def deletar_produto(request):
-#     try:
-#         if request.method == "POST":
-#             id = request.POST.get("id")
-#             produto = get_object_or_404(Produto, id=id)
-#             produto.delete()
-#             return HttpResponseRedirect(reverse('home'))
-#         else: 
-#             messages.error(request, str(e))
-#             print(e)
-#             return HttpResponseRedirect(reverse('home'))
-#     except Exception as e:
-#         messages.error(request, str(e))
-#         print(e)
-#         return HttpResponseRedirect(reverse('home'))
+def deletar_produto(request):
+    try:
+        if request.method == "POST":
+            id = request.POST.get("id")
+            produto = get_object_or_404(Produto, id=id)
+            produto.delete()
+            return HttpResponseRedirect(reverse('produtos'))
+        else: 
+            messages.error(request, str(e))
+            print(e)
+            return HttpResponseRedirect(reverse('produtos'))
+    except Exception as e:
+        messages.error(request, str(e))
+        print(e)
+        return HttpResponseRedirect(reverse('produtos'))
     
 # def editar_produto(request):
 #     if request.method == "POST":
