@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from produto.models import Produto, Categoria
@@ -6,6 +5,7 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.core.validators import RegexValidator
 from django.core.exceptions import ValidationError
+from .util_prod import statusCritico, statusMinimo, statusZerado
 
 
 def validar_codigo(codigo):
@@ -22,10 +22,9 @@ def index(request):
     try:
         # Metodo GET da minha url ""
         if request.method == "GET":
-            produtos = Produto.objects.all()
-            categorias = Categoria.objects.all()
+            context = {'produtos': Produto.objects.all(), 'categorias': Categoria.objects.all()}
             messages.error(request, ("Método Http não permitido!"))
-            return render(request, "produtos.html", {'produtos': produtos, 'categorias': categorias})
+            return render(request, "produtos.html", context)
 
         # Metodo POST da minha url ""
         elif request.method == "POST":
@@ -75,28 +74,37 @@ def deletar_produto(request):
         print(e)
         return HttpResponseRedirect(reverse('produtos'))
     
-# def editar_produto(request):
-#     if request.method == "POST":
-#         #Pega o id do produto
-#         id = request.POST.get("id")
+def editar_produto(request):
+    if request.method == "POST":
+        # Pega o id do produto
+        id = request.POST.get("id")
 
-#         #Procura o produto no banco, caso de errado informa o erro 404
-#         produto = get_object_or_404(Produto, id=id)
+    #Procura o produto no banco, caso de errado informa o erro 404
+        produto = get_object_or_404(Produto, id=id)
 
-#         #Recebemos os atributos via POST
-#         cod_barras =  (request.POST.get("cod_barras", 0))
-#         nome =  (request.POST.get("nome", 0))
-#         quantidade =  (request.POST.get("quantidade", 0))
-#         preco =  (request.POST.get("preco", 0))
-#         id_categoria =  (request.POST.get("id_categoria", 0))
+        #Recebemos os atributos via POST
+        cod_barras =  (request.POST.get("cod_barras", 0))
+        nome =  (request.POST.get("nome", 0))
+        quantidade =  (request.POST.get("quantidade", 0))
+        preco =  (request.POST.get("preco", 0))
+        id_categoria =  (request.POST.get("id_categoria", 0))
 
-#         #Substituimos os Valores antigos pelos novos
-#         produto.cod_barras = cod_barras
-#         produto.nome = nome
-#         produto.quantidade = quantidade
-#         produto.preco = preco
-#         produto.categoria = Categoria.objects.get(id=id_categoria)
+        #Substituimos os Valores antigos pelos novos
+        
+        produto.cod_barras = cod_barras
+        produto.nome = nome
+        produto.quantidade = quantidade
+        produto.preco = preco
+        produto.categoria = Categoria.objects.get(id=id_categoria)
 
-#         #Salva os valores no banco
-#         produto.save()
-#         return HttpResponseRedirect(reverse('home'))
+        #Salva os valores no banco
+        produto.save()
+        return HttpResponseRedirect(reverse('produtos'))
+    
+def minimos(request):
+    return render(request, "produtos_minimos.html", {"minimos": statusMinimo()})
+def criticos(request):
+    return render(request, "produtos_criticos.html", {"minimos": statusCritico()})
+def zerados(request):
+    return render(request, "produtos_zerados.html", {"minimos": statusZerado()})
+    

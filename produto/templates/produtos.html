@@ -152,7 +152,7 @@
                 </div>
 
                 <!-- Modal body -->
-                <form method="POST" action=" " class="p-4 md:p-5">
+                <form method="POST" action="{% url 'editar_produto' %}" class="p-4 md:p-5">
                     {% csrf_token %}
                     <input type="hidden" name="id" id="modal-id">
                     <div class="grid gap-4 mb-4 grid-cols-2">
