@@ -17,4 +17,7 @@ def index(request):
     zerado = Produto.objects.filter(quantidade__in=[0])
 
     valorZerado= len(zerado)
-    return render(request, "home.html", {'minimo': valorMinimo, 'critico': valorCritico,'zerado': valorZerado })
+    return render(request, "home.html", {'minimo': valorMinimo, 
+                                         'critico': valorCritico,
+                                         'zerado': valorZerado, 
+    })
