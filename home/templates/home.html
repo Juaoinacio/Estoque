@@ -4,7 +4,7 @@
 
 {% block content %}
     <div class="box-content h-70 w-[300px] bg-white shadow-xl/20 grid grid-cols-1 border-1 rounded-md">
-        <div class="row-span-1 w-full h-auto rounded-t-md border-b-1 border-black p-4"> 
+        <div class="row-span w-full h-auto rounded-t-md mt-5 border-b-1 border-black  text-2xl flex justify-center">  
             Entradas Mensais 
         </div>
         <div class="row-span-4 w-full h-auto rounded-t-md p-4 flex justify-center items-center"> 
@@ -12,7 +12,7 @@
         </div>
     </div>
     <div class="box-content h-auto w-[300px] bg-white shadow-xl/20 grid grid-cols-1 border-1 rounded-md">
-        <div class="row-span-1 w-full h-auto rounded-t-md border-b-1 border-black p-4"> 
+        <div class="row-span w-full h-auto rounded-t-md mt-5 border-b-1 border-black  text-2xl flex justify-center">  
             Entradas Mensais 
         </div>
         <div class="row-span-4 w-full h-auto rounded-t-md p-4 flex justify-center items-center"> 
@@ -20,7 +20,7 @@
         </div>
     </div>
     <div class="box-content h-auto w-[300px] bg-white shadow-xl/20 grid grid-cols-1 border-1 rounded-md">
-        <div class="row-span-1 w-full h-auto rounded-t-md border-b-1 border-black p-4"> 
+        <div class="row-span w-full h-auto rounded-t-md mt-5 border-b-1 border-black  text-2xl flex justify-center">  
             Entradas Mensais 
         </div>
         <div class="row-span-4 w-full h-auto rounded-t-md p-4 flex justify-center items-center"> 
@@ -28,40 +28,44 @@
         </div>
     </div>
     <div class="box-content h-auto w-[300px] bg-white shadow-xl/20 grid grid-cols-1 border-1 rounded-md">
-        <div class="row-span-1 w-full h-auto rounded-t-md border-b-1 border-black p-4"> 
+        <div class="row-span w-full h-auto rounded-t-md mt-5 border-b-1 border-black  text-2xl flex justify-center">  
             Entradas Mensais 
         </div>
         <div class="row-span-4 w-full h-auto rounded-t-md p-4 flex justify-center items-center"> 
             <h1 class="break-words text-6xl">0</h1>
         </div>
     </div>
-    <div class="box-content h-auto w-[300px] bg-white shadow-xl/20 grid grid-cols-1 border-1 rounded-md">
-        <div class="row-span-1 w-full h-auto rounded-t-md border-b-1 border-black p-4"> 
-            Entradas Mensais 
+    <div class="box-content h-auto w-[300px] bg-linear-to-t from-purple-300 to-blue-400 shadow-xl/20 grid grid-cols-1 border-1 rounded-md ">
+        <div class="row-span w-full h-auto rounded-t-md mt-4 border-b-1 border-black text-2xl flex justify-center"> 
+            Todos os produtos
         </div>
         <div class="row-span-4 w-full h-auto rounded-t-md p-4 flex justify-center items-center"> 
-            <a href="produtos/"  class="break-words text-5xl">All produtos</a>
+            <a href="produtos/"  class="break-words text-5xl">
+                <svg class="w-20 h-20 text-gray-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 20">
+                    <path d="M16 14V2a2 2 0 0 0-2-2H2a2 2 0 0 0-2 2v15a3 3 0 0 0 3 3h12a1 1 0 0 0 0-2h-1v-2a2 2 0 0 0 2-2ZM4 2h2v12H4V2Zm8 16H3a1 1 0 0 1 0-2h9v2Z"></path>
+                </svg>
+            </a>
         </div>
     </div>
-    <div class="box-content h-auto w-[300px] bg-white shadow-xl/20 grid grid-cols-1 border-1 rounded-md">
-        <div class="row-span-1 w-full h-auto rounded-t-md border-b-1 border-black p-4"> 
-            Entradas Mensais 
+    <div class="box-content h-auto w-[300px] bg-linear-to-t from-yellow-200 to-orange-300 shadow-xl/20 grid grid-cols-1 border-1 rounded-md">
+        <div class="row-span w-full h-auto rounded-t-md mt-5 border-b-1 border-black  text-2xl flex justify-center">  
+            Produtos minimos
         </div>
         <div class="row-span-4 w-full h-auto rounded-t-md p-4 flex justify-center items-center"> 
             <h1 class="break-words text-6xl">{{ minimo }}</h1>
         </div>
     </div>
-    <div class="box-content h-auto w-[300px] bg-white shadow-xl/20 grid grid-cols-1 border-1 rounded-md">
-        <div class="row-span-1 w-full h-auto rounded-t-md border-b-1 border-black p-4"> 
-            Entradas Mensais 
+    <div class="box-content h-auto w-[300px] bg-linear-to-t from-red-300 to-orange-300 shadow-xl/20 grid grid-cols-1 border-1 rounded-md">
+        <div class="row-span w-full h-auto rounded-t-md mt-5 border-b-1 border-black  text-2xl flex justify-center">  
+            Produtos críticos 
         </div>
         <div class="row-span-4 w-full h-auto rounded-t-md p-4 flex justify-center items-center"> 
             <h1 class="break-words text-6xl">{{ critico }}</h1>
         </div>
     </div>
-    <div class="box-content h-auto w-[300px] bg-white shadow-xl/20 grid grid-cols-1 border-1 rounded-md">
-        <div class="row-span-1 w-full h-auto rounded-t-md border-b-1 border-black p-4"> 
-            Entradas Mensais 
+    <div class="box-content h-auto w-[300px] bg-linear-to-t from-white to-gray-300 shadow-xl/20 grid grid-cols-1 border-1 rounded-md">
+        <div class="row-span w-full h-auto rounded-t-md mt-5 border-b-1 border-black  text-2xl flex justify-center">  
+            Produtos zerados
         </div>
         <div class="row-span-4 w-full h-auto rounded-t-md p-4 flex justify-center items-center"> 
             <h1 class="break-words text-6xl">{{ zerado }}</h1>
