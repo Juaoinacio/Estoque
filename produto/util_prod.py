@@ -1,16 +1,25 @@
 from .models import Produto
+from datetime import date
+from django.db.models import Sum
+
+#|------ Funções que retornam a contidade de cada status dos produtos -----|
 
 def statusMinimo():
-    return len(Produto.objects.filter(quantidade__range=[100, 200])) 
-
+    return len(Produto.objects.filter(quantidade__range=[101, 200])) 
 def statusCritico():
-    critico = Produto.objects.filter(quantidade__range=[1, 100])
-
-    valorCritico = len(critico)
-    return valorCritico
-
+    return len(Produto.objects.filter(quantidade__range=[1, 100]))
 def statusZerado():
-    zerado = Produto.objects.filter(quantidade = 0)
+    return len(Produto.objects.filter(quantidade = 0))
 
-    valorZerado= len(zerado)
-    return valorZerado
+#|---------------------------------- END ----------------------------------|
+
+# |------------- Retorna a quantidades de produtos no mes atual -----------|
+
+def entradaMes():
+    entrada = Produto.objects.filter(date__month = date.today().month).aggregate(total=Sum('quantidade'))['total']
+
+    print(entrada)
+
+    return
+
+#|---------------------------------- END ----------------------------------|
