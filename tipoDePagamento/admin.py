@@ -1,3 +1,4 @@
 from django.contrib import admin
+from tipoDePagamento.models import TipoDePagamento
 
-# Register your models here.
+admin.site.register(TipoDePagamento)
