@@ -3,10 +3,10 @@ from django.core.validators import RegexValidator
 
 class Fornecedor(models.Model):
     nome = models.CharField(null=False, max_length=30)
-    cnpj = models.CharField(max_length=60, unique=True, validators=[RegexValidator(regex='^\d+$', message='O código de barras deve conter apenas números.')], null=False)
+    cnpj = models.CharField(models.CharField(max_length=60, validators=[RegexValidator(regex='^\d+$', message='O código de barras deve conter apenas números.')], null=False))
 
-    class Meta:
-        db_table = 'Fornecedor'
+class Meta:
+    db_table = 'Fornecedor'
 
-    def __str__(self):
-        return f"Nome: {self.nome} {self.cnpj}"
+def __str__(self):
+    return f"Nome: {self.nome} "

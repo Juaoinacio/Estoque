@@ -23,6 +23,7 @@ def index(request):
         # Metodo GET da minha url ""
         if request.method == "GET":
             context = {'produtos': Produto.objects.all(), 'categorias': Categoria.objects.all()}
+            messages.error(request, ("Método Http não permitido!"))
             return render(request, "produtos.html", context)
 
         # Metodo POST da minha url ""
@@ -52,11 +53,6 @@ def index(request):
     
             produto.save()  # Guarda as informações de cima no bando de dados
             return HttpResponseRedirect(reverse('produtos'))
-        
-        else:
-            messages.error(request, ("Método Http não permitido!"))
-            return HttpResponseRedirect(reverse('produtos'))
-
     except Exception as e:
         messages.error(request, str(e))
         print(e)
