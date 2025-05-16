@@ -30,4 +30,4 @@ class ItemCompra(models.Model):
         db_table = "ItemCompra" 
 
     def __str__(self):
-        return f"Nome: {self.produto.nome} "
+        return f"Nome do produto comprado: {self.produto.nome} "
