@@ -10,6 +10,7 @@ class Compra(models.Model):
     fornecedor = models.ForeignKey(Fornecedor, on_delete=models.PROTECT)
     tipoDePagamento = models.ForeignKey(TipoDePagamento, on_delete=models.PROTECT)
     valor_total = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
+    
     date = models.DateTimeField(default=datetime.now, blank=True)
      
     class Meta:
@@ -21,6 +22,7 @@ class Compra(models.Model):
 
 class ItemCompra(models.Model):
     produto = models.ForeignKey(Produto, on_delete=models.PROTECT)
+    compra = models.ForeignKey(Compra, on_delete=models.PROTECT)
     quantidade = models.PositiveIntegerField()
     precoUnitario = models.DecimalField(max_digits=10, decimal_places=2)
 

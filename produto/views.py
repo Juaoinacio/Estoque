@@ -29,7 +29,7 @@ def index(request):
         elif request.method == "POST":
         
             # Anotação: cod_barras = Tabela do banco vazia (modelo Produto)
-            (request.POST.get("cod_barras", 0)) # = O que eu recebo do Front-end
+            (request.POST.get("cod_barras", 0)) # = O que eu recebo do Front-end caso eu deixo vazio
 
             cod_barras = request.POST.get("cod_barras", "")
             if validar_codigo(cod_barras) == False:
