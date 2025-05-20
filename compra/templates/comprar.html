@@ -6,39 +6,29 @@
 
 {% block content %}
 
-
-<div class="col-span-2 relative overflow-x-auto shadow-md sm:rounded-lg">
-    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+<div class="col-span-2 ">
+    <table class="w-full text-sm text-left  rtl:text-right ">
+        <thead class="text-xs text-center text-gray-300 uppercase bg-gray-700">
             <tr>
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Produto
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Fornecedor
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Tipo de pagamento
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Ver Compra
-                </th>
+                <th scope="col" class="px-6 py-3"> Produto </th>
+                <th scope="col" class="px-6 py-3"> Fornecedor </th>
+                <th scope="col" class="px-6 py-3"> Tipo de pagamento </th>
+                <th scope="col" class="px-6 py-3"> Ver Compra </th>
             </tr>
         </thead>
         <tbody>
             {%for compra in compras%}
             <tr class="bg-gray-800 border-b border-gray-500 hover:bg-gray-700">
-                <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                <td scope="row" class="px-6 py-4 font-medium text-center text-gray-900 whitespace-nowrap dark:text-white">
                     {{compra.notaFiscal}}
                 </td>
                 <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                     {{compra.fornecedor.nome}}
                 </td>
-                <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                <td scope="row" class="px-6 py-4 font-medium text-center text-gray-900  whitespace-nowrap dark:text-white">
                     {{compra.tipoDePagamento.nome}}
                 </td>
-                <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                <td scope="row" class="px-6 py-4 text-center font-medium text-gray-900 whitespace-nowrap dark:text-white">
                     <a href="#">Ver mais</a>
                 </td>
             </tr> 
@@ -47,23 +37,42 @@
     </table>
 </div>
 
-<div class=" bg-white rounded-lg shadow-sm p-4 w-full max-w-md mt-10 col-start-3 col-span-2 ">
+<div class=" bg-gray-800 shadow-sm p-4 w-full max-w-md col-start-3 col-span-2 ">
     <form method="POST" action="" class="p-4 md:p-5">
         {% csrf_token %}
         <div class="grid gap-4 mb-4 grid-cols-2">
             <div class="col-span-2">
-                <label for="nome1" class="block mb-1 text-sm font-medium text-gray-700 ">Nota fiscal</label>
-                <input type="text" name="cod_barras" id="cod_barras" class="w-full p-2 border border-gray-300 rounded-lg text-sm bg-gray-50 focus:ring-blue-500 focus:border-blue-500" required="">
+                <label for="notaFiscal" class="block bg-gray-800 mb-2 text-sm font-medium text-white">Nota fiscal</label>
+                <input type="number" name="notaFiscal" id="notaFiscal" class="w-full p-2 border border-gray-300 rounded-lg text-sm bg-gray-50 focus:ring-blue-500 focus:border-blue-500" required="">
             </div>
             <div class="col-span-2">
-                <label for="nome1" class="block mb-1 text-sm font-medium text-gray-700 ">Fornecedor</label>
-                <input type="text" name="cod_barras" id="cod_barras" class="w-full p-2 border border-gray-300 rounded-lg text-sm bg-gray-50 focus:ring-blue-500 focus:border-blue-500" required="">
+                <label for="tipoDePagamento" class="block bg-gray-800 mb-2 text-sm font-medium text-white">Tipos de pagamentos</label>
+                <select name="tipoDePagamento" id="tipoDePagamento" class="w-full p-2 border border-gray-300 rounded-lg bg-gray-50 text-sm focus:ring-blue-500 focus:border-blue-500">
+        
+                    <option value="" disabled selected>Selecionar categoria</option>
+
+                    {% for t in tiposDePagamentos %}
+                        <option value="{{ t.id }}">{{ t.nome }}</option>
+                    {% endfor %}
+                </select>
             </div>
             <div class="col-span-2">
-                <label for="nome1" class="block mb-1 text-sm font-medium text-gray-700 ">Tipo de pagamento</label>
-                <input type="text" name="cod_barras" id="cod_barras" class="w-full p-2 border border-gray-300 rounded-lg text-sm bg-gray-50 focus:ring-blue-500 focus:border-blue-500" required="">
+               <label for="fornecedor" class="block bg-gray-800 mb-2 text-sm font-medium text-white">Fornecedores</label>
+                <select name="fornecedor" id="fornecedor" class="w-full p-2 border border-gray-300 rounded-lg bg-gray-50 text-sm focus:ring-blue-500 focus:border-blue-500">
+        
+                    <option value="" disabled selected>Selecionar categoria</option>
+
+                    {% for f in fornecedores %}
+                        <option value="{{ f.id }}">{{ f.nome }}</option>
+                    {% endfor %}
+                </select>
             </div>
         </div>
+        <div class="mt-5 flex justify-end">
+                <button type="submit" value="ordem de compra" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-semibold">
+                    Salvar
+                </button>
+            </div>
     </form>
 </div>
 {% endblock  %}
