@@ -3,90 +3,96 @@
 {% block title %}Sistema de estoque WEB{% endblock title %}
 
 {% block content %}
-    <div class="p-4 w-full">
-        <div class="p-4 border-2 border-gray-500 border-dashed rounded-lg">
-            <div class="grid grid-cols-3 gap-4 mb-4">
-                <div class="flex h-24 rounded-sm bg-gray-800 p-2 items-center justify-center">
-                    <article class="font-[sans-serif]">
-                        <h2 class="text-2xl text-gray-300"> AINDA NÃO SEI O QUE FAZER </h2>
-                    </article>
-                </div>
-                <div class="flex items-center justify-center h-24 rounded-sm bg-gray-50 dark:bg-gray-800">
-                    <article class="font-[sans-serif]">
-                        <h2 class="text-2xl text-gray-300"> AINDA NÃO SEI O QUE FAZER </h2>
-                    </article>
-                </div>
-                <div class="flex items-center justify-center h-24 rounded-sm bg-gray-50 dark:bg-gray-800">
-                    <article class="font-[sans-serif]">
-                        <h2 class="text-2xl text-gray-300"> AINDA NÃO SEI O QUE FAZER </h2>
-                    </article>
-                </div>
-            </div>
 
-            <!-- Grid do Grafico UM -->
-            <div class="flex items-center justify-center h-48 mb-4 rounded-sm bg-gray-50 dark:bg-gray-800">
-                <article class="font-[sans-serif]">
-                    <h2 class="text-2xl text-gray-300"> Grafico 1</h2>
-                </article>
-            </div>
-            
-            <div class="grid grid-cols-2 gap-4 mb-4">
-                <div class="flex items-center rounded-sm bg-gray-50 h-28 dark:bg-gray-800 p-4">
-                    <article class="font-[sans-serif]">
-                        <h1 class="text-2xl text-gray-300">Minimos</h1>
-                        <h2 class="text-lg text-gray-300 ml-4 mt-2"> Clique <a href="" class="underline text-yellow-400">Aqui</a> para ver todos os produtos minimos</h2>
-                    </article>
-                </div>
-                <div class="flex items-center rounded-sm bg-gray-50 h-28 dark:bg-gray-800 p-4">
-                    <article class="font-[sans-serif]">
-                        <h1 class="text-2xl text-gray-300">Criticos</h1>
-                        <h2 class="text-lg text-gray-300 ml-4 mt-2"> Clique  <a href="" class="underline text-red-400">Aqui</a> para ver todos os produtos críticos</h2>
-                    </article>
-                </div>
-                <div class="flex items-center rounded-sm bg-gray-50 h-28 dark:bg-gray-800 p-4">
-                    <article class="font-[sans-serif]">
-                        <h1 class="text-2xl text-gray-300">Zerados</h1>
-                        <h2 class="text-lg text-gray-300 ml-4 mt-2"> Clique <a href="" class="underline text-gray-400">Aqui</a> para ver todos os produtos zerados</h2>
-                    </article>
-                </div>
-                <div class="flex items-center rounded-sm bg-gray-50 h-28 dark:bg-gray-800 p-4">
-                    <article class="font-[sans-serif]">
-                        <h1 class="text-2xl text-gray-300">Todos os produtos</h1>
-                        <h2 class="text-lg text-gray-300 ml-4 mt-2"> Clique  <a href="" class="underline text-blue-400">Aqui</a> para ver todos os produtos</h2>
-                    </article>
-                </div>
-            </div>
-
-             <!-- Grid do Grafico DOIS -->
-            <div class="flex items-center justify-center h-48 mb-4 rounded-sm bg-gray-50 dark:bg-gray-800">
-                <article class="font-[sans-serif]">
-                    <h2 class="text-2xl text-gray-300"> Grafico 2</h2>
-                </article>
-            </div>
-
-            <div class="grid grid-cols-2 gap-4">
-                <div class="flex items-center justify-center rounded-sm bg-gray-50 h-28 dark:bg-gray-800">
-                    <article class="font-[sans-serif]">
-                        <h2 class="text-2xl text-gray-300"> AINDA NÃO SEI O QUE FAZER </h2>
-                    </article>
-                </div>
-                <div class="flex items-center justify-center rounded-sm bg-gray-50 h-28 dark:bg-gray-800">
-                    <p class="text-2xl text-gray-400 dark:text-gray-500">
-                    <article class="font-[sans-serif]">
-                        <h2 class="text-2xl text-gray-300"> AINDA NÃO SEI O QUE FAZER </h2>
-                    </article>
-                </div>
-                <div class="flex items-center justify-center rounded-sm bg-gray-50 h-28 dark:bg-gray-800">
-                    <article class="font-[sans-serif]">
-                        <h2 class="text-2xl text-gray-300"> AINDA NÃO SEI O QUE FAZER </h2>
-                    </article>
-                </div>
-                <div class="flex items-center justify-center rounded-sm bg-gray-50 h-28 dark:bg-gray-800">
-                    <article class="font-[sans-serif]">
-                        <h2 class="text-2xl text-gray-300"> AINDA NÃO SEI O QUE FAZER </h2>
-                    </article>
-                </div>
-            </div>
-        </div>
+<!-- Histórico de compra e venda -->
+<div class="grid grid-cols-2 gap-4">
+    <div class="flex items-center rounded-sm bg-gray-800 h-28">
+        <article class="font-[sans-serif] ml-4">
+            <h1 class="text-2xl text-gray-300">Histórico de ordem de Venda</h1>
+            <h2 class="text-lg text-gray-300 ml-4 mt-2"> Clique  <a href="" class="underline text-green-400 hover:text-green-500">Aqui</a> para ver histórico de vendas</h2>
+        </article>
     </div>
+    <div class="flex items-center rounded-sm bg-gray-800 h-28">
+        <article class="font-[sans-serif] ml-4">
+            <h1 class="text-2xl text-gray-300">Histórico de ordem de Compra</h1>
+            <h2 class="text-lg text-gray-300 ml-4 mt-2"> Clique  <a href="" class="underline text-blue-400 hover:text-blue-500">Aqui</a> para ver histórico de compras</h2>
+        </article>
+    </div>
+    <div class="flex items-center rounded-sm bg-gray-800 h-28">
+        <article class="font-[sans-serif] ml-4">
+            <h1 class="text-2xl text-gray-300">Cadastrar Ordem de Venda</h1>
+            <h2 class="text-lg text-gray-300 ml-4 mt-2"> Clique  <a href="" class="underline text-green-400 hover:text-green-500">Aqui</a> para ver todas as ordem de venda </h2>
+        </article>
+    </div>
+    <div class="flex items-center rounded-sm bg-gray-800 h-28">
+        <article class="font-[sans-serif] ml-4">
+            <h1 class="text-2xl text-gray-300">Cadastrar ordem de Compra</h1>
+            <h2 class="text-lg text-gray-300 ml-4 mt-2"> Clique  <a href="" class="underline text-blue-400 hover:text-blue-500">Aqui</a> para ver todas as ordem de compras</h2>
+        </article>
+    </div>
+</div>
+
+<!-- Grid do Grafico UM -->
+<div class="flex items-center justify-center h-48 mb-4 mt-4 rounded-sm bg-gray-800 ">
+    <article class="font-[sans-serif]">
+        <h2 class="text-2xl text-gray-300"> Grafico 1</h2>
+    </article>
+</div>
+
+<!-- Minimos, Criticos, Zerados, Todos -->
+<div class="grid grid-cols-2 gap-4 mb-4">
+    <div class="flex items-center rounded-sm bg-gray-800 h-28 p-4">
+        <article class="font-[sans-serif]">
+            <h1 class="text-2xl text-gray-300">Minimos</h1>
+            <h2 class="text-lg text-gray-300 ml-4 mt-2"> Clique <a href="" class="underline text-yellow-400">Aqui</a> para ver todos os produtos minimos</h2>
+        </article>
+    </div>
+    <div class="flex items-center rounded-sm bg-gray-800 h-28 p-4">
+        <article class="font-[sans-serif]">
+            <h1 class="text-2xl text-gray-300">Criticos</h1>
+            <h2 class="text-lg text-gray-300 ml-4 mt-2"> Clique  <a href="" class="underline text-red-400">Aqui</a> para ver todos os produtos críticos</h2>
+        </article>
+    </div>
+    <div class="flex items-center rounded-sm bg-gray-800 h-28 p-4">
+        <article class="font-[sans-serif]">
+            <h1 class="text-2xl text-gray-300">Zerados</h1>
+            <h2 class="text-lg text-gray-300 ml-4 mt-2"> Clique <a href="" class="underline text-gray-400">Aqui</a> para ver todos os produtos zerados</h2>
+        </article>
+    </div>
+    <div class="flex items-center rounded-sm bg-gray-800 h-28 p-4">
+        <article class="font-[sans-serif]">
+            <h1 class="text-2xl text-gray-300">Todos os produtos</h1>
+            <h2 class="text-lg text-gray-300 ml-4 mt-2"> Clique  <a href="" class="underline text-blue-400">Aqui</a> para ver todos os produtos</h2>
+        </article>
+    </div>
+</div>
+
+<!-- Grid do Grafico DOIS -->
+<div class="flex items-center justify-center h-48 mb-4 rounded-sm bg-gray-800">
+    <article class="font-[sans-serif]">
+        <h2 class="text-2xl text-gray-300"> Grafico 2</h2>
+    </article>
+</div>
+
+<!-- Total de venda e compra -->
+<div class="grid grid-cols-3 gap-4 mb-4">
+    <div class="flex items-center h-24 rounded-sm bg-gray-800 p-4">
+        <article class="font-[sans-serif]">
+            <h1 class="text-2xl text-gray-300">Total de Vendas</h1>
+            <h2 class="text-lg text-gray-300 ml-4 mt-2"> Clique <a href="" class="underline text-yellow-400">Aqui</a> para ver todos os produtos minimos</h2>
+        </article>
+    </div>
+    <div class="flex items-center h-24 rounded-sm bg-gray-800 p-4">
+        <article class="font-[sans-serif]">
+            <h1 class="text-2xl text-gray-300">Total de Compras</h1>
+            <h2 class="text-lg text-gray-300 ml-4 mt-2"> Clique <a href="" class="underline text-yellow-400">Aqui</a> para ver todos os produtos minimos</h2>
+        </article>
+    </div>
+    <div class="flex items-center h-24 rounded-sm bg-gray-800 p-4">
+        <article class="font-[sans-serif]">
+            <h1 class="text-2xl text-gray-300">Total de Compras e Vendas </h1>
+            <h2 class="text-lg text-gray-300 ml-4 mt-2"> Clique <a href="" class="underline text-yellow-400">Aqui</a> para ver todos os produtos minimos</h2>
+        </article>
+    </div>
+</div>
 {% endblock %}
