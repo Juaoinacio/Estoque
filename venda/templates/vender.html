@@ -1,1 +1,93 @@
-{% include "base.html" %}
+{% extends "base.html" %}
+
+{% block title %}Ordem de Venda{% endblock title %}
+
+{% block content %}
+
+    {% if vendas%}
+    
+    <!-- Tabela que imprime os produto na home -->
+
+    <table class="w-full text-sm text-left text-gray-500 row-span-4 col-span-4 p-12 ">
+        <thead class="text-xs text-gray-300 uppercase bg-gray-700">
+            <tr>
+                <!-- Titulos -->
+                <th class="px-6 py-3">Nota fiscal</th>
+                <th class="px-6 py-3">Tipo de pagamento</th>
+                <th class="px-6 py-3">Cadastrar item de venda</th>
+                <th calss="px-6 py-3">Data da venda</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Produtos -->
+            {% for venda in vendas %}
+            <tr class="bg-gray-800 text-white">
+                <td class="px-6 py-4">{{ venda.notaFiscal }}</td>
+                <td class="px-6 py-4">{{ venda.tipoDePagamento.nome}}</td>
+                <td class="px-6 py-4">{{ venda.date|date:"d/m/Y H:i" }}</td>
+                <td class="px-6 py-4">  <a href="#"> Cadastrar itens</a> </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+        
+    {% else %}
+   <div class="flex items-center justify-center h-screen">
+        <h1>Nenhum produto cadastrado</h1>
+    </div>
+
+    {% endif %}
+
+    <!-- Formulario de produto -->
+    <div class="col-start-4 col-span-1 shadow-sm p-2 w-full max-w-md mt-10 bg-gray-800">
+        <form method="POST" action="" class="p-4">
+            {% csrf_token %}
+            <div class="grid gap-4 grid-cols-2 bg-gray-800">
+                <!-- Codigo de barras -->
+                <div class="col-span-2">
+                    <label for="nome1" class="block mb-1 text-sm font-medium text-white ">Codigo de Barras:</label>
+                    <input type="text" name="cod_barras" id="cod_barras" class="w-full p-2 border border-gray-300 rounded-lg text-sm bg-gray-50 focus:ring-blue-500 focus:border-blue-500" required="">
+                </div>
+        
+                <!-- Nome -->
+                <div class="col-span-2">
+                    <label for="nome2" class="block mb-1 text-sm font-medium text-white">Nome:</label>
+                    <input type="text" name="nome" id="nome" class="w-full p-2 border border-gray-300 rounded-lg text-sm bg-gray-50 focus:ring-blue-500 focus:border-blue-500"required="">
+                </div>
+        
+                <!-- Quantidade -->
+                <div class="col-span-2 sm:col-span-1">
+                    <label for="nome3" class="block mb-1 text-sm font-medium text-white">Quantidade:</label>
+                    <input type="text" name="quantidade" id="quantidade" class="w-full p-2 border border-gray-300 rounded-lg text-sm bg-gray-50 focus:ring-blue-500 focus:border-blue-500"required="">
+                </div>
+        
+                <!-- Preço -->
+                <div class="col-span-2 sm:col-span-1">
+                    <label for="nome4" class="block mb-1 text-sm font-medium text-white">Preço:</label>
+                    <input type="text" name="preco" id="preco" class="w-full p-2 border border-gray-300 rounded-lg text-sm bg-gray-50 focus:ring-blue-500 focus:border-blue-500"required="">
+                </div>
+
+                <!-- Categoria, faz um for nas categorias usando select para exibi-las -->
+                <div class="col-span-2">
+                    <label for="categoria" class="block mb-2 text-sm font-medium text-white">Categoria:</label>
+                    <select name="id_categoria" id="categoria" class="w-full p-2 border border-gray-300 rounded-lg bg-gray-50 text-sm focus:ring-blue-500 focus:border-blue-500">
+            
+                        <option value="" disabled selected>Selecionar categoria</option>
+
+                        {% for c in categorias %}
+                            <option value="{{ c.id }}">{{ c.nome }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+
+            <!-- Botão para enviar os dados de cadastro de produto -->
+            <div class="flex justify-end mt-4">
+                <button type="submit" value="cadastrar produto" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-semibold">
+                    Salvar
+                </button>
+            </div>
+        </form>
+    </div>
+{% endblock %}

@@ -14,7 +14,7 @@ class Venda(models.Model):
         db_table = "Venda"
 
     def __str__(self):
-        return f"Nome: {self.nome} "
+        return f"Nota Fiscal: {self.notaFiscal} "
 
 class ItemVenda(models.Model):
     produto = models.ForeignKey(Produto, on_delete=models.PROTECT)
@@ -25,4 +25,4 @@ class ItemVenda(models.Model):
         db_table = 'ItemVenda'
 
     def __str__(self):
-        return f"Nome: {self.nome}"
+        return f"Nome: {self.produto}"
