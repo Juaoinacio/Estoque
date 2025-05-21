@@ -39,50 +39,24 @@
 
     {% endif %}
 
-    <!-- Formulario de produto -->
+     <!-- Formulario de venda-->
     <div class="col-start-4 col-span-1 shadow-sm p-2 w-full max-w-md mt-10 bg-gray-800">
         <form method="POST" action="" class="p-4">
             {% csrf_token %}
             <div class="grid gap-4 grid-cols-2 bg-gray-800">
-                <!-- Codigo de barras -->
+                <!-- Nota Fiscal -->
                 <div class="col-span-2">
                     <label for="nome1" class="block mb-1 text-sm font-medium text-white ">Codigo de Barras:</label>
-                    <input type="text" name="cod_barras" id="cod_barras" class="w-full p-2 border border-gray-300 rounded-lg text-sm bg-gray-50 focus:ring-blue-500 focus:border-blue-500" required="">
+                    <input type="text" name="notaFiscal" id="" class="w-full p-2 border border-gray-300 rounded-lg text-sm bg-gray-50 focus:ring-blue-500 focus:border-blue-500" required="">
                 </div>
         
-                <!-- Nome -->
+                <!-- Tipo de pagamentos -->
                 <div class="col-span-2">
                     <label for="nome2" class="block mb-1 text-sm font-medium text-white">Nome:</label>
-                    <input type="text" name="nome" id="nome" class="w-full p-2 border border-gray-300 rounded-lg text-sm bg-gray-50 focus:ring-blue-500 focus:border-blue-500"required="">
-                </div>
-        
-                <!-- Quantidade -->
-                <div class="col-span-2 sm:col-span-1">
-                    <label for="nome3" class="block mb-1 text-sm font-medium text-white">Quantidade:</label>
-                    <input type="text" name="quantidade" id="quantidade" class="w-full p-2 border border-gray-300 rounded-lg text-sm bg-gray-50 focus:ring-blue-500 focus:border-blue-500"required="">
-                </div>
-        
-                <!-- Preço -->
-                <div class="col-span-2 sm:col-span-1">
-                    <label for="nome4" class="block mb-1 text-sm font-medium text-white">Preço:</label>
-                    <input type="text" name="preco" id="preco" class="w-full p-2 border border-gray-300 rounded-lg text-sm bg-gray-50 focus:ring-blue-500 focus:border-blue-500"required="">
+                    <input type="text" name="tipoDePagamento" id="" class="w-full p-2 border border-gray-300 rounded-lg text-sm bg-gray-50 focus:ring-blue-500 focus:border-blue-500"required="">
                 </div>
 
-                <!-- Categoria, faz um for nas categorias usando select para exibi-las -->
-                <div class="col-span-2">
-                    <label for="categoria" class="block mb-2 text-sm font-medium text-white">Categoria:</label>
-                    <select name="id_categoria" id="categoria" class="w-full p-2 border border-gray-300 rounded-lg bg-gray-50 text-sm focus:ring-blue-500 focus:border-blue-500">
-            
-                        <option value="" disabled selected>Selecionar categoria</option>
-
-                        {% for c in categorias %}
-                            <option value="{{ c.id }}">{{ c.nome }}</option>
-                        {% endfor %}
-                    </select>
-                </div>
-            </div>
-
-            <!-- Botão para enviar os dados de cadastro de produto -->
+            <!-- Botão para enviar os dados -->
             <div class="flex justify-end mt-4">
                 <button type="submit" value="cadastrar produto" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-semibold">
                     Salvar
@@ -90,4 +64,5 @@
             </div>
         </form>
     </div>
+
 {% endblock %}
