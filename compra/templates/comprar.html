@@ -6,62 +6,65 @@
 
     {% if compras%}
     
-    <!-- Tabela que imprime os produto na home -->
+<div class="grid grid-cols-2 gap-4">
+    <!-- Tabela (primeira coluna) -->
+    <div>
+        <table class="w-full text-sm text-left text-gray-500 p-12">
+            <thead class="text-xs text-gray-300 uppercase bg-gray-700">
+                <tr>
+                    <th class="px-6 py-3">Nota fiscal</th>
+                    <th class="px-6 py-3">Fornecedor</th>
+                    <th class="px-6 py-3">Tipo de pagamento</th>
+                    <th class="px-6 py-3">Data da venda</th>
+                    <th class="px-6 py-3">Cadastrar item de venda</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for compra in compras %}
+                <tr class="bg-gray-800 text-white">
+                    <td class="px-6 py-4">{{ compra.notaFiscal }}</td>
+                    <td class="px-6 py-4">{{ compra.fornecedor.nome }}</td>
+                    <td class="px-6 py-4">{{ compra.tipoDePagamento.nome }}</td>
+                    <td class="px-6 py-4">{{ compra.date|date:"d/m/Y H:i" }}</td>
+                    <td class="px-6 py-4"><a href="#">Cadastrar itens</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
 
-    <table class="w-full text-sm text-left text-gray-500 row-span-4 col-span-4 p-12 ">
-        <thead class="text-xs text-gray-300 uppercase bg-gray-700">
-            <tr>
-                <!-- Titulos -->
-                <th class="px-6 py-3">Nota fiscal</th>
-                <th class="px-6 py-3">Tipo de pagamento</th>
-                <th class="px-6 py-3">Cadastrar item de venda</th>
-                <th calss="px-6 py-3">Data da venda</th>
-
-            </tr>
-        </thead>
-        <tbody>
-            <!-- Produtos -->
-            {% for compra in compras %}
-            <tr class="bg-gray-800 text-white">
-                <td class="px-6 py-4">{{ compra.notaFiscal }}</td>
-                <td class="px-6 py-4">{{ compra.tipoDePagamento.nome}}</td>
-                <td class="px-6 py-4">{{ compra.date|date:"d/m/Y H:i" }}</td>
-                <td class="px-6 py-4">  <a href="#"> Cadastrar itens</a> </td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-        
     {% else %}
-   <div class="flex items-center justify-center h-screen">
+    <div class="flex items-center justify-center h-screen">
         <h1>Nenhum produto cadastrado</h1>
     </div>
-
     {% endif %}
-
-    <!-- Formulario de compra -->
-    <div class="col-start-4 col-span-1 shadow-sm p-2 w-full max-w-md mt-10 bg-gray-800">
-        <form method="POST" action="" class="p-4">
-            {% csrf_token %}
-            <div class="grid gap-4 grid-cols-2 bg-gray-800">
-                <!-- Nota Fiscal -->
-                <div class="col-span-2">
-                    <label for="nome1" class="block mb-1 text-sm font-medium text-white ">Codigo de Barras:</label>
-                    <input type="text" name="notaFiscal" id="" class="w-full p-2 border border-gray-300 rounded-lg text-sm bg-gray-50 focus:ring-blue-500 focus:border-blue-500" required="">
-                </div>
-        
-                <!-- Tipo de pagamentos -->
-                <div class="col-span-2">
-                    <label for="nome2" class="block mb-1 text-sm font-medium text-white">Nome:</label>
-                    <input type="text" name="tipoDePagamento" id="" class="w-full p-2 border border-gray-300 rounded-lg text-sm bg-gray-50 focus:ring-blue-500 focus:border-blue-500"required="">
-                </div>
-
-            <!-- Botão para enviar os dados -->
-            <div class="flex justify-end mt-4">
-                <button type="submit" value="cadastrar produto" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-semibold">
-                    Salvar
-                </button>
-            </div>
-        </form>
     </div>
+
+    <!-- Formulário (segunda coluna centralizada) -->
+    <div class="flex justify-center items-start">
+        <div class="shadow-sm p-2 w-full max-w-md bg-gray-800">
+            <form method="POST" action="" class="p-4">
+                {% csrf_token %}
+                <div class="grid gap-4 grid-cols-2 bg-gray-800">
+                    <!-- Nota Fiscal -->
+                    <div class="col-span-2">
+                        <label class="block mb-1 text-sm font-medium text-white">Nota Fiscal:</label>
+                        <input type="text" name="notaFiscal" class="w-full p-2 border border-gray-300 rounded-lg text-sm bg-gray-50 focus:ring-blue-500 focus:border-blue-500" required>
+                    </div>
+                    <!-- Tipo de pagamento -->
+                    <div class="col-span-2">
+                        <label class="block mb-1 text-sm font-medium text-white">Tipo de Pagamento:</label>
+                        <input type="text" name="tipoDePagamento" class="w-full p-2 border border-gray-300 rounded-lg text-sm bg-gray-50 focus:ring-blue-500 focus:border-blue-500" required>
+                    </div>
+                </div>
+                <!-- Botão -->
+                <div class="flex justify-end mt-4">
+                    <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-semibold">
+                        Salvar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 {% endblock %}
