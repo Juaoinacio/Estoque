@@ -1,12 +1,16 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from produto.models import Produto, Categoria
+from compra.models import Compra
+from venda.models import Venda
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.core.validators import RegexValidator
 from django.core.exceptions import ValidationError
 from .util_prod import statusCritico, statusMinimo, statusZerado
+from datetime import datetime
 
+data = datetime.now().month
 
 def validar_codigo(codigo):
     validador = RegexValidator(regex='^\d+$', message='O código de barras deve conter apenas números.')
@@ -22,9 +26,14 @@ def index(request):
     try:
         # Metodo GET da minha url ""
         if request.method == "GET":
-            context = {'produtos': Produto.objects.all(), 'categorias': Categoria.objects.all()}
+            context = {
+                'produtos': Produto.objects.all(), 
+                'categorias': Categoria.objects.all(), 
+                'dataDeEntrada':Compra.objects.filter(date__month = data),
+                'dataDeSaida':Venda.objects.filter(date__month = data),
+            }
+            print(Compra.objects.filter(date__month = data))
             return render(request, "produtos.html", context)
-
         # Metodo POST da minha url ""
         elif request.method == "POST":
         
