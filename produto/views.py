@@ -27,7 +27,7 @@ def index(request):
         # Metodo GET da minha url ""
         if request.method == "GET":
 
-            # instancio o "Produto" para usar seus atributos e busco todos no banco de dados
+            # Busco todos os produtos no banco de dados
             produtos = Produto.objects.all()
 
             # lista que ira guardar todos os meus produtos
@@ -46,19 +46,21 @@ def index(request):
                     }
 
                     # instancio o "ItemCompra" para usar seus atributos e buscar o ultimo 
-                    item = ItemCompra.objects.filter(produto=p).last()
+                    item = ItemCompra.objects.filter(produto=p).order_by('-compra__date').first()
+                   
                     if item is None:
                         dados["entrada"] = "N/D"
                     else:
-                        compra = Compra.objects.get(id=item.compra.id)
-                        dados["entrada"] = compra.date.strftime(("%d/%m/%Y, %H:%M:%S"))
+                        print(item.compra.date)
+                        ultimaCompra = item.compra
+                        dados["entrada"] = ultimaCompra.date.strftime(("%d/%m/%Y, %H:%M:%S"))
 
                     itemv = ItemVenda.objects.filter(produto=p).last()
                     if itemv is None:
                         dados["saida"] = "N/D"
                     else:
-                        venda = Venda.objects.get(id= itemv.venda.id)
-                        dados["saida"] = venda.date.strftime(("%d/%m/%Y, %H:%M:%S"))
+                        ultimaVenda = Venda.objects.get(id=itemv.venda.id)
+                        dados["saida"] = ultimaVenda.date.strftime(("%d/%m/%Y, %H:%M:%S"))
                     
                     arrayGeralEntrada.append(dados)
 
@@ -66,6 +68,7 @@ def index(request):
                 "produtos" : arrayGeralEntrada,
             }
 
+            
             return render(request, "produtos.html", context)
         # Metodo POST da minha url ""
         elif request.method == "POST":
