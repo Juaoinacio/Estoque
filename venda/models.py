@@ -18,6 +18,7 @@ class Venda(models.Model):
 
 class ItemVenda(models.Model):
     produto = models.ForeignKey(Produto, on_delete=models.PROTECT)
+    venda = models.ForeignKey(Venda, on_delete=models.PROTECT)
     quantidade = models.PositiveIntegerField()
     precoUnitario = models.DecimalField(max_digits=10, decimal_places=2)
 

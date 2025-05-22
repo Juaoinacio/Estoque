@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from produto.models import Produto, Categoria
-from compra.models import Compra
-from venda.models import Venda
+from compra.models import Compra, ItemCompra
+from venda.models import Venda, ItemVenda
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.core.validators import RegexValidator
@@ -26,13 +26,46 @@ def index(request):
     try:
         # Metodo GET da minha url ""
         if request.method == "GET":
+
+            # instancio o "Produto" para usar seus atributos e busco todos no banco de dados
+            produtos = Produto.objects.all()
+
+            # lista que ira guardar todos os meus produtos
+            arrayGeralEntrada = []
+
+            if produtos.exists(): # produtos existe ? 
+               for p in produtos: 
+                    # abrimos um dicionário passando os atributos do Model "Produto".
+                    dados = {
+                        "nome" : p.nome, 
+                        "cod_barra" : p.cod_barras, 
+                        "categoria": p.categoria.nome, 
+                        "quantidade": p.quantidade,
+                        "status": p.status,
+                        "preco": p.valorPago 
+                    }
+
+                    # instancio o "ItemCompra" para usar seus atributos e buscar o ultimo 
+                    item = ItemCompra.objects.filter(produto=p).last()
+                    if item is None:
+                        dados["entrada"] = "N/D"
+                    else:
+                        compra = Compra.objects.get(id=item.compra.id)
+                        dados["entrada"] = compra.date.strftime(("%d/%m/%Y, %H:%M:%S"))
+
+                    itemv = ItemVenda.objects.filter(produto=p).last()
+                    if itemv is None:
+                        dados["saida"] = "N/D"
+                    else:
+                        venda = Venda.objects.get(id= itemv.venda.id)
+                        dados["saida"] = venda.date.strftime(("%d/%m/%Y, %H:%M:%S"))
+                    
+                    arrayGeralEntrada.append(dados)
+
             context = {
-                'produtos': Produto.objects.all(), 
-                'categorias': Categoria.objects.all(), 
-                'dataDeEntrada':Compra.objects.filter(date__month = data),
-                'dataDeSaida':Venda.objects.filter(date__month = data),
+                "produtos" : arrayGeralEntrada,
             }
-            print(Compra.objects.filter(date__month = data))
+
             return render(request, "produtos.html", context)
         # Metodo POST da minha url ""
         elif request.method == "POST":

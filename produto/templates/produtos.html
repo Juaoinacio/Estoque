@@ -31,8 +31,8 @@
             {% for produto in produtos %}
             <tr class="bg-gray-800 text-white">
                 <td class="px-6 py-4">{{ produto.nome }}</td>
-                <td class="px-6 py-4">{{ produto.cod_barras }}</td>
-                <td class="px-6 py-4">{{ produto.categoria.nome }}</td>
+                <td class="px-6 py-4">{{ produto.cod_barra }}</td>
+                <td class="px-6 py-4">{{ produto.categoria }}</td>
                 <td class="px-6 py-4">{{ produto.quantidade }}</td>
 
                 {% if produto.status == "Critico" %}
@@ -65,8 +65,8 @@
                 {% endif%}
 
                 <td class="px-6 py-4">R$ {{ produto.preco }}</td>
-                <td class="px-6 py-4">{{ produto.dataDeEntrada.date|date:"d/m/Y H:i" }}</td>
-                <td class="px-6 py-4">{{ produto.date|date:"d/m/Y H:i" }}</td>
+                <td class="px-6 py-4">{{ produto.entrada }}</td>
+                <td class="px-6 py-4">{{ produto.saida }}</td>
 
                 <td class="px-6 py-4">
                     <!-- Modal toggle -->
@@ -137,7 +137,7 @@
             
                         <option value="" disabled selected>Selecionar categoria</option>
 
-                        {% for c in categorias %}
+                        {% for c in categoria %}
                             <option value="{{ c.id }}">{{ c.nome }}</option>
                         {% endfor %}
                     </select>
