@@ -7,8 +7,8 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.core.validators import RegexValidator
 from django.core.exceptions import ValidationError
-from .util_prod import statusCritico, statusMinimo, statusZerado
 from datetime import datetime
+from django.db.models import Sum
 
 data = datetime.now().month
 
@@ -40,7 +40,6 @@ def index(request):
                         "nome" : p.nome, 
                         "cod_barra" : p.cod_barras, 
                         "categoria": p.categoria.nome, 
-                        "status": p.status,
                     }
 
                     # instancio o "ItemCompra" para usar seus atributos e buscar o ultimo 
@@ -48,22 +47,38 @@ def index(request):
                    
                     if item is None:
                         dados["entrada"] = "N/D"
+                        dados["preco"] = 0.00
+                        dados["quantidade"] = 0
+                        dados["status"] = "Zerado"
                     else:
-                        print(item.compra.date)
-                        ultimaCompra = item.compra
-                        totalValorCompra = item.precoUnitario * item.quantidade
-                        dados["quantidade"] = item.quantidade
-                        dados["preco"] = totalValorCompra
+                        ultimaCompra = item.compra # id da compra 
                         dados["entrada"] = ultimaCompra.date.strftime(("%d/%m/%Y, %H:%M:%S"))
+                        totalValorCompra = item.precoUnitario * item.quantidade   
+                        dados["preco"] = totalValorCompra
+                        
+                        # Soma total da quantidade de compras para este produto
+                        somaQuantidade = ItemCompra.objects.filter(produto=p).aggregate(total=Sum('quantidade'))['total'] or 0
+                        dados["quantidade"] = somaQuantidade
 
+                         
+    
+                        if somaQuantidade < 100:
+                            dados["status"] = "Critico"
+                        elif somaQuantidade < 200:
+                            dados["status"] = "Minimo"
+                        else:
+                            dados["status"] = "Normal"
+                        
+                        print(dados["status"])
                     itemv = ItemVenda.objects.filter(produto=p).last()
                     if itemv is None:
                         dados["saida"] = "N/D"
                     else:
-                        ultimaVenda = Venda.objects.get(id=itemv.venda.id)
+                        ultimaVenda = itemv.venda # id da venda
                         dados["saida"] = ultimaVenda.date.strftime(("%d/%m/%Y, %H:%M:%S"))
                     
                     arrayGeralEntrada.append(dados)
+                    
 
             context = {
                 "produtos" : arrayGeralEntrada,
@@ -150,11 +165,3 @@ def editar_produto(request):
         #Salva os valores no banco
         produto.save()
         return HttpResponseRedirect(reverse('produtos'))
-    
-def minimos(request):
-    return render(request, "produtos_minimos.html", {"minimos": statusMinimo()})
-def criticos(request):
-    return render(request, "produtos_criticos.html", {"minimos": statusCritico()})
-def zerados(request):
-    return render(request, "produtos_zerados.html", {"minimos": statusZerado()})
-    

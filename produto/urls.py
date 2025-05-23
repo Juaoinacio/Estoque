@@ -12,9 +12,7 @@ urlpatterns = [
 
 #   |------------- Urls dos produto Minimo,Critico e Zerado. -------------|
 
-    path("minimos", views.minimos, name="minimos"),
-    path("criticos", views.criticos, name="criticos"),
-    path("zerados", views.zerados, name="zerados"),
+    
     
     
 ]

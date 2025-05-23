@@ -12,18 +12,6 @@ class Produto(models.Model):
     categoria = models.ForeignKey(Categoria, on_delete=models.PROTECT)
     date = models.DateTimeField(default=datetime.now, blank=True)
 
-    @property
-    def status(self):
-        if self.quantidade == 0:
-            return "Zerado"
-        elif self.quantidade < 100:
-            return "Critico"
-        elif self.quantidade < 200:
-            return "Minimo"
-        else:
-            return "Normal"
-
-
     # Class Meta ser ver para aplicar regras na sua tabela
     class Meta:
         db_table = "Produto"
