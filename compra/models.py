@@ -31,3 +31,4 @@ class ItemCompra(models.Model):
 
     def __str__(self):
         return f"Nome do produto comprado: {self.produto.nome} "
+

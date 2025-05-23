@@ -12,14 +12,3 @@ def statusZerado():
     return len(Produto.objects.filter(quantidade = 0))
 
 #|---------------------------------- END ----------------------------------|
-
-# |------------- Retorna a quantidades de produtos no mes atual -----------|
-
-def entradaMes():
-    entrada = Produto.objects.filter(date__month = date.today().month).aggregate(total=Sum('quantidade'))['total']
-
-    print(entrada)
-
-    return
-
-#|---------------------------------- END ----------------------------------|

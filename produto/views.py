@@ -40,9 +40,7 @@ def index(request):
                         "nome" : p.nome, 
                         "cod_barra" : p.cod_barras, 
                         "categoria": p.categoria.nome, 
-                        "quantidade": p.quantidade,
                         "status": p.status,
-                        "preco": p.valorPago 
                     }
 
                     # instancio o "ItemCompra" para usar seus atributos e buscar o ultimo 
@@ -53,6 +51,9 @@ def index(request):
                     else:
                         print(item.compra.date)
                         ultimaCompra = item.compra
+                        totalValorCompra = item.precoUnitario * item.quantidade
+                        dados["quantidade"] = item.quantidade
+                        dados["preco"] = totalValorCompra
                         dados["entrada"] = ultimaCompra.date.strftime(("%d/%m/%Y, %H:%M:%S"))
 
                     itemv = ItemVenda.objects.filter(produto=p).last()
