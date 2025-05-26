@@ -6,12 +6,13 @@ from django.urls import reverse
 def index(request):
     try:
         if request.method == "GET":
+            vendas = Venda.objects.all()
+
+            arrayEntradaGeral = []
             context = {
-                "vendas": Venda.objects.all(),
-                "itens": ItemVenda.objects.all(),
-                "tiposdepagamentos": TipoDePagamento.objects.all(),
+                "vendas": arrayEntradaGeral
             }
 
-            return render(request, "vender.html", context)
+            return render(request, "vender.html", arrayEntradaGeral)
     except:
         pass
