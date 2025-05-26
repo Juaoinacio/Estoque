@@ -17,7 +17,7 @@ class Compra(models.Model):
         db_table = "Compra"
 
     def __str__(self):
-        return f"Nome: {self.notaFiscal} "
+        return f"Nota Fiscal: {self.notaFiscal} {self.fornecedor} "
 
 
 class ItemCompra(models.Model):
@@ -30,5 +30,5 @@ class ItemCompra(models.Model):
         db_table = "ItemCompra" 
 
     def __str__(self):
-        return f"Nome do produto comprado: {self.produto.nome} "
+        return f"Produto: {self.produto.nome} "
 

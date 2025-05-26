@@ -9,4 +9,4 @@ class Fornecedor(models.Model):
         db_table = 'Fornecedor'
 
     def __str__(self):
-        return f"Nome: {self.nome} {self.cnpj}"
+        return f"Fornecedor: {self.nome} CNPJ: {self.cnpj}"

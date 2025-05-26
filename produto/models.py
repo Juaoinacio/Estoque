@@ -17,6 +17,6 @@ class Produto(models.Model):
         db_table = "Produto"
 
     def __str__(self):
-        return f"Nome: {self.nome} - QTD: {self.quantidade} "
+        return f"Nome: {self.nome} - QTD: {self.quantidade} Código de barras: {self.cod_barras}"
 
         

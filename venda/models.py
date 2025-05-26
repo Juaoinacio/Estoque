@@ -26,4 +26,4 @@ class ItemVenda(models.Model):
         db_table = 'ItemVenda'
 
     def __str__(self):
-        return f"Nome: {self.produto}"
+        return f"Produto: {self.produto.nome}"

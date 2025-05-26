@@ -7,5 +7,5 @@ class TipoDePagamento(models.Model):
         db_table = "tipoDePagamento"
 
     def __str__(self):
-        return f"Nome: {self.nome} "
+        return f"Tipo de Pagamento: {self.nome} "
 
