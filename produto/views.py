@@ -31,7 +31,7 @@ def index(request):
             produtos = Produto.objects.all()
 
             # lista que ira guardar todos os meus produtos
-            arrayGeralEntrada = []
+            arrayEntradaGeral = []
 
             if produtos.exists(): # produtos existe ? 
                for p in produtos: 
@@ -77,11 +77,11 @@ def index(request):
                         ultimaVenda = itemv.venda # id da venda
                         dados["saida"] = ultimaVenda.date.strftime(("%d/%m/%Y, %H:%M:%S"))
                     
-                    arrayGeralEntrada.append(dados)
+                    arrayEntradaGeral.append(dados)
                     
 
             context = {
-                "produtos" : arrayGeralEntrada,
+                "produtos" : arrayEntradaGeral,
             }
 
             

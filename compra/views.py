@@ -6,11 +6,25 @@ from django.urls import reverse
 def index(request):
     try:
         if  request.method == "GET":
+
+            compras = Compra.objects.all()
+
+            arrayEntradaGeral = []
+
+            if compras.exists():
+                for i in compras:
+                    dados = {
+                        "notaFiscal": i.notaFiscal,
+                        "fornecedor": i.fornecedor,
+                        "tipoDePagamento": i.tipoDePagamento,
+                        "data": i.date,
+                    }
+
+                    arrayEntradaGeral.append(dados)
+            
             context = {
-                'compras': Compra.objects.all(), 
-                'items': ItemCompra.objects.all(), 
-                "fornecedores": Fornecedor.objects.all(), 
-                "tiposDePagamentos": TipoDePagamento.objects.all()}
+                "compras": arrayEntradaGeral
+            }
 
             return render(request, "comprar.html", context)
         elif request.method == "POST":
