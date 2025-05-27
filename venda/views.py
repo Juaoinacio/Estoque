@@ -9,10 +9,20 @@ def index(request):
             vendas = Venda.objects.all()
 
             arrayEntradaGeral = []
+            for v in vendas:
+                if vendas.exists():
+                    dados = {
+                        "notaFiscal": v.notaFiscal,
+                        "tipoDePagamento": v.tipoDePagamento,
+                        "valorTotal": v.valor_total,
+                        "data": v.date
+                    }
+                arrayEntradaGeral.append(dados)
+
             context = {
                 "vendas": arrayEntradaGeral
             }
 
-            return render(request, "vender.html", arrayEntradaGeral)
+            return render(request, "vender.html", context)
     except:
         pass
