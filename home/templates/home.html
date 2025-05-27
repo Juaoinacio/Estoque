@@ -2,6 +2,14 @@
 
 {% block title %}Sistema de estoque WEB{% endblock title %}
 
+{% block grafico %} 
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/series-label.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+{% endblock  %}
+
 {% block content %}
 
 <!-- Histórico de compra e venda -->
@@ -20,7 +28,7 @@
     </div>
     <div class="flex items-center rounded-sm bg-gray-800 h-28">
         <article class="font-[sans-serif] ml-4">
-            <h1 class="text-2xl text-gray-300">Ver Todas compras e vendas</h1>
+            <h1 class="text-2xl text-gray-300">Não sei o que fazer !!!!</h1>
             <h2 class="text-lg text-gray-300 ml-4 mt-2"> Clique  <a href="" class="underline text-green-400 hover:text-green-500">Aqui</a> para ver todas as ordem de venda </h2>
         </article>
     </div>
@@ -33,11 +41,11 @@
 </div>
 
 <!-- Grid do Grafico UM -->
-<div class="flex items-center justify-center h-48 mb-4 mt-4 rounded-sm bg-gray-800 ">
-    <article class="font-[sans-serif]">
-        <h2 class="text-2xl text-gray-300"> Grafico 1</h2>
-    </article>
-</div>
+
+<figure class="highcharts-figure">
+    <div id="container" class="my-6"></div>
+</figure>
+
 
 <!-- Minimos, Criticos, Zerados, Todos -->
 <div class="grid grid-cols-2 gap-4 mb-4">
@@ -95,4 +103,97 @@
         </article>
     </div>
 </div>
+
+<script>
+
+    Highcharts.chart('container', {
+    chart: {
+        type: 'spline',
+        backgroundColor: '#1e2838', // fundo escuro
+        style: {
+            fontFamily: 'sans-serif'
+        }
+    },
+    title: {
+        text: 'Entradas e Saidas mensais',
+        style: {
+            color: '#d1d5dc'
+        }
+    },
+    xAxis: {
+        categories: [
+            'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+            'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
+        ],
+        accessibility: {
+            description: 'Months of the year'
+        },
+        labels: {
+            style: {
+                color: '#d1d5dc'
+            }
+        },
+        lineColor: '#888'
+    },
+    yAxis: {
+        title: {
+            text: 'Quantidade',
+            style: {
+                color: '#d1d5dc'
+            }
+        },
+        labels: {
+            format: '{value}',
+            style: {
+                color: '#d1d5dc'
+            }
+        },
+        gridLineColor: '#444'
+    },
+    tooltip: {
+        backgroundColor: '#333333',
+        borderColor: '#888',
+        style: {
+            color: '#FFFFFF'
+        },
+        crosshairs: true,
+        shared: true
+    },
+    plotOptions: {
+        series: {
+            label: {
+                enabled: false
+            }
+        },
+        spline: {
+            marker: {
+                radius: 4,
+                lineColor: '#FFFFFF',
+                lineWidth: 1
+            }
+        }
+    },
+    legend: {
+        itemStyle: {
+            color: '#FFFFFF'
+        }
+    },
+    series: [{
+        name: 'Vendas',
+        color: "#13d172",
+        marker: {
+            symbol: 'square'
+        },
+        data: [5.2, 5.7, 8.7, 13.9, 18.2, 21.4, 25.0, 26.3, 22.8, 17.5, 12.1, 7.6]
+
+    }, {
+        name: 'Compras',
+        marker: {
+            symbol: 'square'
+        },
+        data: [1.6, 3.3, 5.9, 10.5, 13.5, 14.5, 14.4, 11.5, 8.7, 4.7, 2.6, 1.5]
+    }]
+});
+
+</script>
 {% endblock %}
