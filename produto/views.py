@@ -1,14 +1,15 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from produto.models import Produto, Categoria
-from compra.models import Compra, ItemCompra
-from venda.models import Venda, ItemVenda
+from compra.models import ItemCompra
+from venda.models import ItemVenda
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.core.validators import RegexValidator
 from django.core.exceptions import ValidationError
 from datetime import datetime
 from django.db.models import Sum
+from .utils import anosMes
 
 data = datetime.now().month
 
@@ -26,7 +27,7 @@ def index(request):
     try:
         # Metodo GET da minha url ""
         if request.method == "GET":
-
+            meses()
             # Busco todos os produtos no banco de dados
             produtos = Produto.objects.all()
 
@@ -165,3 +166,23 @@ def editar_produto(request):
         #Salva os valores no banco
         produto.save()
         return HttpResponseRedirect(reverse('produtos'))
+    
+
+# Função para tetornar a quantidade de venda/compra dos meses.
+def meses(type):
+    array = []
+    for i in range(1, 13):
+        totalMes = anosMes(i, type)
+        array.append(totalMes)
+    return array
+        
+        
+
+
+
+
+
+    
+
+
+    
