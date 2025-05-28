@@ -41,11 +41,7 @@
 </div>
 
 <!-- Grid do Grafico UM -->
-
-<figure class="highcharts-figure">
-    <div id="container" class="my-6"></div>
-</figure>
-
+{% include "_graficoUm.html" %}
 
 <!-- Minimos, Criticos, Zerados, Todos -->
 <div class="grid grid-cols-2 gap-4 mb-4">
@@ -75,12 +71,9 @@
     </div>
 </div>
 
-<!-- Grid do Grafico DOIS -->
-<div class="flex items-center justify-center h-48 mb-4 rounded-sm bg-gray-800">
-    <article class="font-[sans-serif]">
-        <h2 class="text-2xl text-gray-300"> Grafico 2</h2>
-    </article>
-</div>
+<!-- Grid do Grafico Dois -->
+
+{% include "_graficoDois.html" %}
 
 <!-- Total de venda e compra -->
 <div class="grid grid-cols-3 gap-4 mb-4">
@@ -104,96 +97,4 @@
     </div>
 </div>
 
-<script>
-
-    Highcharts.chart('container', {
-    chart: {
-        type: 'spline',
-        backgroundColor: '#1e2838', // fundo escuro
-        style: {
-            fontFamily: 'sans-serif'
-        }
-    },
-    title: {
-        text: 'Entradas e Saidas mensais',
-        style: {
-            color: '#d1d5dc'
-        }
-    },
-    xAxis: {
-        categories: [
-            'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-            'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
-        ],
-        accessibility: {
-            description: 'Months of the year'
-        },
-        labels: {
-            style: {
-                color: '#d1d5dc'
-            }
-        },
-        lineColor: '#888'
-    },
-    yAxis: {
-        title: {
-            text: 'Quantidade',
-            style: {
-                color: '#d1d5dc'
-            }
-        },
-        labels: {
-            format: '{value}',
-            style: {
-                color: '#d1d5dc'
-            }
-        },
-        gridLineColor: '#444'
-    },
-    tooltip: {
-        backgroundColor: '#333333',
-        borderColor: '#888',
-        style: {
-            color: '#FFFFFF'
-        },
-        crosshairs: true,
-        shared: true
-    },
-    plotOptions: {
-        series: {
-            label: {
-                enabled: false
-            }
-        },
-        spline: {
-            marker: {
-                radius: 4,
-                lineColor: '#FFFFFF',
-                lineWidth: 1
-            }
-        }
-    },
-    legend: {
-        itemStyle: {
-            color: '#FFFFFF'
-        }
-    },
-    series: [{
-        name: 'Vendas',
-        color: "#13d172",
-        marker: {
-            symbol: 'square'
-        },
-        data: {{ venda }}
-
-    }, {
-        name: 'Compras',
-        marker: {
-            symbol: 'square'
-        },
-        data: {{ compra }}
-    }]
-});
-
-</script>
 {% endblock %}

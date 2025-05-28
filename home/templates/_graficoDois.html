@@ -1,0 +1,121 @@
+<figure class="highcharts-figure">
+    <div id="container2" class="my-4 rounded-sm"></div>
+</figure>
+
+<script>
+
+    Highcharts.chart('container2', {
+        chart: {
+            backgroundColor: '#1e2838',
+            type: 'column',
+            fontFamily: 'sans-serif'
+        },
+        title: {
+            text: 'Protudos com ais rotatividade'
+        },
+        accessibility: {
+            announceNewData: {
+                enabled: true
+            }
+        },
+        xAxis: {
+            type: 'category'
+        },
+        yAxis: {
+            title: {
+                text: 'Quantidade',
+                style: {
+                    color: '#d1d5dc'
+                }
+            },
+            labels: {
+                format: '{value}',
+                style: {
+                    color: '#d1d5dc'
+                }
+            },
+            gridLineColor: '#444'
+        },
+        legend: {
+            enabled: false
+        },
+        plotOptions: {
+            series: {
+                borderWidth: 0,
+                dataLabels: {
+                    enabled: true,
+                    format: '{value}'
+                }
+            }
+        },
+
+        tooltip: {
+            backgroundColor: '#333333',
+            borderColor: '#888',
+            style: {
+                color: '#FFFFFF'
+            },
+            crosshairs: true,
+            shared: true
+        },
+
+        series: [
+            {
+                name: 'Produtos',
+                colorByPoint: true,
+                data: [
+                    {
+                        name: 'Produto 1',
+                        y: 6,
+                    },
+                    {
+                        name: 'Produto 2',
+                        y: 19,
+                    },
+                    {
+                        name: 'Produto 3',
+                        y: 4,
+                    },
+                    {
+                        name: 'Produto 4',
+                        y: 4,
+                    },
+                    {
+                        name: 'Produto 5',
+                        y: 2,
+                    },
+                    {
+                        name: 'Produto 6',
+                        y: 0,
+                    },
+                    {
+                        name: 'Produto 7',
+                        y: 1,
+                    },
+                    {
+                        name: 'Produto 8',
+                        y: 1,
+                    },
+                    {
+                        name: 'Produto 9',
+                        y: 1,
+                    },
+                    {
+                        name: 'Produto 10',
+                        y: 1,
+                    },
+                    
+                ]
+            }
+        ],
+        drilldown: {
+            breadcrumbs: {
+                position: {
+                    align: 'right'
+                }
+            },
+            series: []
+        }
+    });
+</script>
+

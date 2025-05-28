@@ -3,6 +3,7 @@ from django.contrib import messages
 from produto.models import Produto, Categoria
 from compra.models import ItemCompra
 from venda.models import ItemVenda
+from extoque.models import Extoque
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.core.validators import RegexValidator
@@ -27,10 +28,9 @@ def index(request):
     try:
         # Metodo GET da minha url ""
         if request.method == "GET":
-            meses()
             # Busco todos os produtos no banco de dados
             produtos = Produto.objects.all()
-
+            
             # lista que ira guardar todos os meus produtos
             arrayEntradaGeral = []
 
@@ -44,13 +44,13 @@ def index(request):
                     }
 
                     # instancio o "ItemCompra" para usar seus atributos e buscar o ultimo 
+                    e = Extoque.objects.all()
                     item = ItemCompra.objects.filter(produto=p).order_by('-compra__date').first()
                    
                     if item is None:
                         dados["entrada"] = "N/D"
                         dados["preco"] = 0.00
                         dados["quantidade"] = 0
-                        dados["status"] = "Zerado"
                     else:
                         ultimaCompra = item.compra # id da compra 
                         dados["entrada"] = ultimaCompra.date.strftime(("%d/%m/%Y, %H:%M:%S"))
@@ -58,19 +58,6 @@ def index(request):
                         dados["preco"] = totalValorCompra
                         
                         # Soma total da quantidade de compras para este produto
-                        somaQuantidade = ItemCompra.objects.filter(produto=p).aggregate(total=Sum('quantidade'))['total'] or 0
-                        dados["quantidade"] = somaQuantidade
-
-                         
-    
-                        if somaQuantidade < 100:
-                            dados["status"] = "Critico"
-                        elif somaQuantidade < 200:
-                            dados["status"] = "Minimo"
-                        else:
-                            dados["status"] = "Normal"
-                        
-                        print(dados["status"])
                     itemv = ItemVenda.objects.filter(produto=p).last()
                     if itemv is None:
                         dados["saida"] = "N/D"
@@ -79,8 +66,8 @@ def index(request):
                         dados["saida"] = ultimaVenda.date.strftime(("%d/%m/%Y, %H:%M:%S"))
                     
                     arrayEntradaGeral.append(dados)
-                    
-
+                    print(e)
+                    print(dados)
             context = {
                 "produtos" : arrayEntradaGeral,
             }
@@ -99,7 +86,7 @@ def index(request):
                 return HttpResponseRedirect(reverse('produtos'))
 
             nome =  (request.POST.get("nome", 0))
-            quantidade =  (request.POST.get("quantidade", 0))
+            #quantidade =  (request.POST.get("quantidade", 0))
             preco =  (request.POST.get("preco", 0))
             id_categoria =  (request.POST.get("id_categoria", 0)) # id que vem da minha categoria, assim sabemos qual categoria esse produto é.
             
@@ -107,7 +94,7 @@ def index(request):
             produto = Produto(
                 cod_barras = cod_barras,
                 nome = nome,
-                quantidade = quantidade,
+                #quantidade = quantidade,
                 preco = preco,
                 categoria = Categoria.objects.get(id=id_categoria) # Busca a instância da Categoria correspondente ao ID enviado
             )
@@ -175,14 +162,5 @@ def meses(type):
         totalMes = anosMes(i, type)
         array.append(totalMes)
     return array
-        
-        
-
-
-
-
-
-    
-
 
     

@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'venda',
     'fornecedor',
     'tipoDePagamento',
+    'extoque'
 ]
 
 MIDDLEWARE = [

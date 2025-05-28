@@ -1,6 +1,6 @@
 from compra.models import Compra
 from venda.models import Venda
-
+from .models import Produto
 
 def anosMes(nMes, type):
     if type == "c":

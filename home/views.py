@@ -4,15 +4,12 @@ from django.http import HttpResponseRedirect
 from produto.views import meses
 from django.urls import reverse
 
-
-
 def index(request):
     try:
         context = {
             "compra" : meses("c"),
             "venda" : meses("v"),
         }
-        print(meses)
         return render(request, "home.html", context)
         
     except Exception as e:

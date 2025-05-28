@@ -6,7 +6,6 @@ from django.core.validators import RegexValidator
 class Produto(models.Model):
     cod_barras = models.CharField(max_length=20, unique=True, validators=[RegexValidator(regex='^\d+$', message='O código de barras deve conter apenas números.')], null=False)
     nome = models.CharField(max_length=50)
-    quantidade = models.IntegerField(default=0)
     valorPago = models.DecimalField(null=False, max_digits=50,decimal_places=2)
     valorVenda = models.DecimalField(null=False, max_digits=50,decimal_places=2)
     categoria = models.ForeignKey(Categoria, on_delete=models.PROTECT)
@@ -17,6 +16,6 @@ class Produto(models.Model):
         db_table = "Produto"
 
     def __str__(self):
-        return f"Nome: {self.nome} - QTD: {self.quantidade} Código de barras: {self.cod_barras}"
+        return f"Nome: {self.nome} - Código de barras: {self.cod_barras}"
 
         
