@@ -30,12 +30,12 @@
     <!-- Container principal com sidebar fixa à esquerda e conteúdo à direita -->
     <div class="flex">
         <!-- Espaço reservado para a sidebar (64px = w-64) -->
-        <div class="w-64 hidden sm:block"></div>
+        <div class="w-64 hidden sm:block "></div>
 
         <!-- Conteúdo principal -->
-        <main class="flex-1 p-4">
-            <div class="p-4 w-full">
-                <div class="p-4 border-2 border-gray-500 border-dashed rounded-lg">
+        <main class="flex-1 p-4 md:flex">
+            <div class="p-4 w-full ">
+                <div class="p-4 border-2 border-gray-500 border-dashed rounded-lg ">
                     {% block content %}
                     {% endblock %}
                 </div>
