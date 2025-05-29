@@ -1,21 +1,20 @@
 from django.db import models
 from categoria.models import Categoria
-from datetime import datetime
 from django.core.validators import RegexValidator
 
 class Produto(models.Model):
-    cod_barras = models.CharField(max_length=20, unique=True, validators=[RegexValidator(regex='^\d+$', message='O código de barras deve conter apenas números.')], null=False)
+    importado = models.BooleanField(default=False)
+    ncm = models.CharField(max_length=8)
     nome = models.CharField(max_length=50)
-    valorPago = models.DecimalField(null=False, max_digits=50,decimal_places=2)
-    valorVenda = models.DecimalField(null=False, max_digits=50,decimal_places=2)
+    estoqueAtual = models.IntegerField()
+    estoqueMinimo = models.IntegerField(default=0)
+    preco = models.DecimalField(max_digits=50,decimal_places=2)
     categoria = models.ForeignKey(Categoria, on_delete=models.PROTECT)
-    date = models.DateTimeField(default=datetime.now, blank=True)
 
     # Class Meta ser ver para aplicar regras na sua tabela
     class Meta:
+        ordering = ('nome',)
         db_table = "Produto"
 
     def __str__(self):
-        return f"Nome: {self.nome} - Código de barras: {self.cod_barras}"
-
-        
+        return f"Nome: {self.nome}"

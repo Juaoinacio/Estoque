@@ -15,11 +15,10 @@
             <tr>
                 <!-- Titulos -->
                 <th class="px-6 py-3">Produto</th>
-                <th class="px-6 py-3">Código de Barras</th>
                 <th class="px-6 py-3">Categoria</th>
-                <th class="px-6 py-3">Quantidade</th>
-                <th class="px-6 py-3">Status</th>
                 <th class="px-6 py-3">Valor de estoque</th>
+                <th class="px-6 py-3">Estoque atual</th>
+                <th class="px-6 py-3">Estoque Minimo</th>
                 <th class="px-6 py-3">Entrada</th>
                 <th class="px-6 py-3">Saída</th>
                 <th class="px-6 py-3">Editar</th>
@@ -31,40 +30,10 @@
             {% for produto in produtos %}
             <tr class="bg-gray-800 text-white">
                 <td class="px-6 py-4">{{ produto.nome }}</td>
-                <td class="px-6 py-4">{{ produto.cod_barra }}</td>
                 <td class="px-6 py-4">{{ produto.categoria }}</td>
-                <td class="px-6 py-4">{{ produto.quantidade }}</td>
-
-                {% if produto.status == "Critico" %}
-                    <td class="px-6 py-4">
-                        <span class="bg-red-100 text-red-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-sm dark:bg-red-900 dark:text-red-300">
-                            {{produto.status}}
-                        </span>
-                    </td>
-
-                {% elif produto.status == "Minimo" %}
-                    <td class="px-6 py-4">
-                        <span class="bg-yellow-500 text-yellow-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-sm ">
-                            {{produto.status}}
-                        </span>
-                    </td>
-
-                {% elif produto.status == "Normal" %}
-                    <td class="px-6 py-4">
-                        <span class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-sm">
-                            {{produto.status}}
-                        </span>
-                    </td>
-
-                {% else %}
-                    <td class="px-6 py-4">
-                        <span class="bg-gray-100 text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-sm">
-                            {{produto.status}}
-                        </span>
-                    </td>
-                {% endif%}
-
                 <td class="px-6 py-4">R$ {{ produto.preco }}</td>
+                <td class="px-6 py-4">{{ produto.estoqueAtual }}</td>
+                <td class="px-6 py-4">{{ produto.estoqueMinimo }}</td>                
                 <td class="px-6 py-4">{{ produto.entrada }}</td>
                 <td class="px-6 py-4">{{ produto.saida }}</td>
 
@@ -75,9 +44,7 @@
                         data-modal-toggle="crud-modal"
                         data-id="{{ produto.id }}"
                         data-nome="{{ produto.nome }}"
-                        data-cod_barras="{{ produto.cod_barras }}"
                         data-categoria-id="{{ produto.categoria.id }}"
-                        data-quantidade="{{ produto.quantidade }}"
                         data-preco="{{ produto.preco }}">
                         Editar
                     </button>
@@ -108,26 +75,31 @@
             <div class="grid gap-4 grid-cols-2 bg-gray-800">
                 <!-- Codigo de barras -->
                 <div class="col-span-2">
-                    <label for="nome1" class="block mb-1 text-sm font-medium text-white ">Codigo de Barras:</label>
-                    <input type="text" name="cod_barras" id="cod_barras" class="w-full p-2 border border-gray-300 rounded-lg text-sm bg-gray-50 focus:ring-blue-500 focus:border-blue-500" required="">
+                    <label for="nome1" class="block mb-1 text-sm font-medium text-white ">NCM:</label>
+                    <input type="text" name="ncm" id="cod_barras" class="w-full p-2 border border-gray-300 rounded-lg text-sm bg-gray-50 focus:ring-blue-500 focus:border-blue-500" required="">
                 </div>
         
                 <!-- Nome -->
-                <div class="col-span-2">
+                <div class="col-span-2 sm:col-span-1">
                     <label for="nome2" class="block mb-1 text-sm font-medium text-white">Nome:</label>
                     <input type="text" name="nome" id="nome" class="w-full p-2 border border-gray-300 rounded-lg text-sm bg-gray-50 focus:ring-blue-500 focus:border-blue-500"required="">
                 </div>
-        
-                <!-- Quantidade -->
-                <div class="col-span-2 sm:col-span-1">
-                    <label for="nome3" class="block mb-1 text-sm font-medium text-white">Quantidade:</label>
-                    <input type="text" name="quantidade" id="quantidade" class="w-full p-2 border border-gray-300 rounded-lg text-sm bg-gray-50 focus:ring-blue-500 focus:border-blue-500"required="">
-                </div>
-        
+
                 <!-- Preço -->
                 <div class="col-span-2 sm:col-span-1">
                     <label for="nome4" class="block mb-1 text-sm font-medium text-white">Preço:</label>
                     <input type="text" name="preco" id="preco" class="w-full p-2 border border-gray-300 rounded-lg text-sm bg-gray-50 focus:ring-blue-500 focus:border-blue-500"required="">
+                </div>
+        
+                <!-- Quantidade -->
+                <div class="col-span-2 sm:col-span-1">
+                    <label for="nome3" class="block mb-1 text-sm font-medium text-white">Estoque atual:</label>
+                    <input type="text" name="quantidade" id="estoqueAtual" class="w-full p-2 border border-gray-300 rounded-lg text-sm bg-gray-50 focus:ring-blue-500 focus:border-blue-500"required="">
+                </div>
+
+                <div class="col-span-2 sm:col-span-1">
+                    <label for="nome3" class="block mb-1 text-sm font-medium text-white">Estoque minimo:</label>
+                    <input type="text" name="quantidade" id="estoqueMinimo" class="w-full p-2 border border-gray-300 rounded-lg text-sm bg-gray-50 focus:ring-blue-500 focus:border-blue-500"required="">
                 </div>
 
                 <!-- Categoria, faz um for nas categorias usando select para exibi-las -->

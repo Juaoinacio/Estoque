@@ -30,13 +30,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'home',
+    'core',
     'produto',
     'categoria',
-    'compra',
-    'venda',
+    'estoque',
     'fornecedor',
     'tipoDePagamento',
-    'extoque'
 ]
 
 MIDDLEWARE = [
@@ -49,7 +48,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'estoque.urls'
+ROOT_URLCONF = 'projeto.urls'
 
 TEMPLATES = [
     {
@@ -66,7 +65,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'estoque.wsgi.application'
+WSGI_APPLICATION = 'projeto.wsgi.application'
 
 
 # Database
@@ -106,9 +105,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'pt-BR'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/Sao_Paulo'
 
 USE_I18N = True
 

@@ -11,8 +11,5 @@ urlpatterns = [
     
 
 #   |------------- Urls dos produto Minimo,Critico e Zerado. -------------|
-
-    
-    
-    
+   
 ]

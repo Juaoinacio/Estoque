@@ -1,18 +1,12 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from produto.models import Produto, Categoria
-from compra.models import ItemCompra
-from venda.models import ItemVenda
-from extoque.models import Extoque
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.core.validators import RegexValidator
 from django.core.exceptions import ValidationError
 from datetime import datetime
 from django.db.models import Sum
-from .utils import anosMes
-
-data = datetime.now().month
 
 def validar_codigo(codigo):
     validador = RegexValidator(regex='^\d+$', message='O código de barras deve conter apenas números.')
@@ -39,35 +33,16 @@ def index(request):
                     # abrimos um dicionário passando os atributos do Model "Produto".
                     dados = {
                         "nome" : p.nome, 
-                        "cod_barra" : p.cod_barras, 
-                        "categoria": p.categoria.nome, 
+                        "ncm": p.ncm,
+                        "categoria": p.categoria.nome,
+                        "preco" : p.preco,
+                        "estoqueAtual" : p.estoqueAtual,
+                        "estoqueMinimo" : p.estoqueMinimo
                     }
 
                     # instancio o "ItemCompra" para usar seus atributos e buscar o ultimo 
-                    e = Extoque.objects.all()
-                    item = ItemCompra.objects.filter(produto=p).order_by('-compra__date').first()
-                   
-                    if item is None:
-                        dados["entrada"] = "N/D"
-                        dados["preco"] = 0.00
-                        dados["quantidade"] = 0
-                    else:
-                        ultimaCompra = item.compra # id da compra 
-                        dados["entrada"] = ultimaCompra.date.strftime(("%d/%m/%Y, %H:%M:%S"))
-                        totalValorCompra = item.precoUnitario * item.quantidade   
-                        dados["preco"] = totalValorCompra
-                        
-                        # Soma total da quantidade de compras para este produto
-                    itemv = ItemVenda.objects.filter(produto=p).last()
-                    if itemv is None:
-                        dados["saida"] = "N/D"
-                    else:
-                        ultimaVenda = itemv.venda # id da venda
-                        dados["saida"] = ultimaVenda.date.strftime(("%d/%m/%Y, %H:%M:%S"))
-                    
+
                     arrayEntradaGeral.append(dados)
-                    print(e)
-                    print(dados)
             context = {
                 "produtos" : arrayEntradaGeral,
             }
@@ -92,9 +67,7 @@ def index(request):
             
             #  Cria um novo objeto Produto com os dados recebidos do formulário
             produto = Produto(
-                cod_barras = cod_barras,
                 nome = nome,
-                #quantidade = quantidade,
                 preco = preco,
                 categoria = Categoria.objects.get(id=id_categoria) # Busca a instância da Categoria correspondente ao ID enviado
             )
@@ -136,31 +109,16 @@ def editar_produto(request):
         produto = get_object_or_404(Produto, id=id)
 
         #Recebemos os atributos via POST
-        cod_barras =  (request.POST.get("cod_barras", 0))
         nome =  (request.POST.get("nome", 0))
-        quantidade =  (request.POST.get("quantidade", 0))
         preco =  (request.POST.get("preco", 0))
         id_categoria =  (request.POST.get("id_categoria", 0))
 
         #Substituimos os Valores antigos pelos novos
-        
-        produto.cod_barras = cod_barras
+    
         produto.nome = nome
-        produto.quantidade = quantidade
         produto.preco = preco
         produto.categoria = Categoria.objects.get(id=id_categoria)
 
         #Salva os valores no banco
         produto.save()
         return HttpResponseRedirect(reverse('produtos'))
-    
-
-# Função para tetornar a quantidade de venda/compra dos meses.
-def meses(type):
-    array = []
-    for i in range(1, 13):
-        totalMes = anosMes(i, type)
-        array.append(totalMes)
-    return array
-
-    
