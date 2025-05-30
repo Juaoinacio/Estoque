@@ -30,7 +30,8 @@ def index(request):
             # lista que ira guardar todos os meus produtos
             arrayEntradaGeral = []
 
-            if produtos.exists(): # produtos existe ? 
+            if produtos.exists(): # produtos existe ?
+                
                for p in produtos: 
                     # abrimos um dicionário passando os atributos do Model "Produto".
                     dados = {
@@ -62,11 +63,11 @@ def index(request):
             nome =  request.POST.get("nome", 0)
             ncm = request.POST.get("ncm", 0)
             preco =  request.POST.get("preco", 0)
-            id_categoria =  request.POST.get("id_categoria", 0) # id que vem da minha categoria, assim sabemos qual categoria esse produto é.
+            categoria =  request.POST.get("categoria", 0) # id que vem da minha categoria, assim sabemos qual categoria esse produto é.
             estoqueAtual = request.POST.get("estoqueAtual", 0)
             estoqueMinimo = request.POST.get("estoqueMinimo", 0)
-            importado = request.POST.get("importado", 0)
-            
+            importado = request.POST.get("importado") == "on"
+
             #  Cria um novo objeto Produto com os dados recebidos do formulário
             produto = Produto(
                 nome = nome,
@@ -75,7 +76,7 @@ def index(request):
                 importado = importado,
                 estoqueAtual = estoqueAtual, 
                 estoqueMinimo = estoqueMinimo,
-                categoria = Categoria.objects.get(id=id_categoria), # Busca a instância da Categoria correspondente ao ID enviado
+                categoria = Categoria.objects.get(id=categoria), # Busca a instância da Categoria correspondente ao ID enviado
             )
     
             produto.save()  # Guarda as informações de cima no bando de dados
@@ -111,19 +112,29 @@ def editar_produto(request):
         # Pega o id do produto
         id = request.POST.get("id")
 
+        print(request.POST)
+
     #Procura o produto no banco, caso de errado informa o erro 404
         produto = get_object_or_404(Produto, id=id)
 
         #Recebemos os atributos via POST
-        nome =  (request.POST.get("nome", 0))
-        preco =  (request.POST.get("preco", 0))
-        id_categoria =  (request.POST.get("id_categoria", 0))
+        nome =  request.POST.get("nome", 0)
+        preco =  request.POST.get("preco", 0)
+        ncm = request.POST.get("ncm", 0)
+        importado = request.POST.get("importado", 0) == "on"
+        estoqueAtual = request.POST.get("estoqueAtual", 0)
+        estoqueMinimo = request.POST.get("estoqueMinimo", 0)
+        categoria =  request.POST.get("categoria", 0)
 
         #Substituimos os Valores antigos pelos novos
     
-        produto.nome = nome
-        produto.preco = preco
-        produto.categoria = Categoria.objects.get(id=id_categoria)
+        nome = nome
+        preco = preco
+        ncm = ncm
+        importado = importado
+        estoqueAtual = estoqueAtual 
+        estoqueMinimo = estoqueMinimo
+        categoria = Categoria.objects.get(id=categoria)
 
         #Salva os valores no banco
         produto.save()
