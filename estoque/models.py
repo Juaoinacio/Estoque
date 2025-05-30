@@ -20,7 +20,7 @@ class Estoque(CarimboData):
         db_table = "Estoque" 
 
     def __str__(self):
-        return f"{self.pk}" 
+        return f"{self.pk}"
 
 class EstoqueItem(models.Model):
     estoque = models.ForeignKey(Estoque, on_delete=models.CASCADE)
@@ -33,4 +33,4 @@ class EstoqueItem(models.Model):
         db_table = "EstoqueItem" 
     
     def __str__(self):
-        return f"{self.pk} {self.estoque.pk} {self.produto.pk}" # PK referencia a primary key (chave primaria) == id
+        return f"{self.pk} Estoque ID:{self.estoque} {self.produto}" # PK referencia a primary key (chave primaria) == id

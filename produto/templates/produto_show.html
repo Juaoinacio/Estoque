@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block voltar %} 
+<div class="grid flex w-12">
+    <a href="{% url 'produtos' %}" class="inline-flex items-center gap-2 px-3 py-2 mb-4 text-md font-medium text-gray-800 bg-gray-100 rounded-lg hover:bg-gray-200">
+        <svg class="w-5 h-5 text-gray-800" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5H1m0 0 4 4M1 5l4-4" />
+        </svg>
+        Voltar
+    </a>
+</div>
+
+{% endblock  %}
+
+{% block content %}
+
+
+
+
+
+
+<h1 class="text-2xl font-bold mb-4">{{ produto.nome }}</h1>
+
+<table class="w-full text-sm text-left text-gray-500 row-span-2 col-span-2 p-12">
+    <tbody>
+        <tr class="bg-gray-800 text-white">
+            <td class="px-4 py-2 border">ID</td>
+            <td class="px-4 py-2 border">{{ produto.id }}</td>
+        </tr>
+        <tr class="bg-gray-800 text-white">
+            <td class="px-4 py-2 border">Importado</td>
+            <td class="px-4 py-2 border">{{ produto.importado|yesno:"Sim,Não" }}</td>
+        </tr>
+        <tr class="bg-gray-800 text-white">
+            <td class="px-4 py-2 border">Nome</td>
+            <td class="px-4 py-2 border">{{ produto.nome }}</td>
+        </tr>
+        <tr class="bg-gray-800 text-white">
+            <td class="px-4 py-2 border">NCM</td>
+            <td class="px-4 py-2 border">{{ produto.ncm }}</td>
+        </tr>
+        <tr class="bg-gray-800 text-white">
+            <td class="px-4 py-2 border">Categoria</td>
+            <td class="px-4 py-2 border">{{ produto.categoria}}</td>
+        </tr>
+        <tr class="bg-gray-800 text-white">
+            <td class="px-4 py-2 border">Preço</td>
+            <td class="px-4 py-2 border">R$ {{ produto.preco }}</td>
+        </tr>
+        <tr class="bg-gray-800 text-white">
+            <td class="px-4 py-2 border">Estoque Atual</td>
+            <td class="px-4 py-2 border">{{ produto.estoqueAtual }}</td>
+        <tr class="bg-gray-800 text-white">
+        <tr class="bg-gray-800 text-white">
+            <td class="px-4 py-2 border">Estoque Mínimo</td>
+            <td class="px-4 py-2 border">{{ produto.estoqueMinimo }}</td>
+        </tr>
+    </tbody>
+</table>
+
+{% endblock %}

@@ -23,6 +23,8 @@ def index(request):
         # Metodo GET da minha url ""
         if request.method == "GET":
             # Busco todos os produtos no banco de dados
+            categoria = Categoria.objects.all()
+
             produtos = Produto.objects.all()
             
             # lista que ira guardar todos os meus produtos
@@ -32,6 +34,8 @@ def index(request):
                for p in produtos: 
                     # abrimos um dicionário passando os atributos do Model "Produto".
                     dados = {
+                        "importado" : p.importado,
+                        "id" : p.id,
                         "nome" : p.nome, 
                         "ncm": p.ncm,
                         "categoria": p.categoria.nome,
@@ -45,31 +49,33 @@ def index(request):
                     arrayEntradaGeral.append(dados)
             context = {
                 "produtos" : arrayEntradaGeral,
+                "categorias": categoria,
             }
 
             
             return render(request, "produtos.html", context)
         # Metodo POST da minha url ""
         elif request.method == "POST":
-        
-            # Anotação: cod_barras = Tabela do banco vazia (modelo Produto)
-            (request.POST.get("cod_barras", 0)) # = O que eu recebo do Front-end caso eu deixo vazio
 
-            cod_barras = request.POST.get("cod_barras", "")
-            if validar_codigo(cod_barras) == False:
-                messages.error(request, ("Apenas numeros"))
-                return HttpResponseRedirect(reverse('produtos'))
-
-            nome =  (request.POST.get("nome", 0))
-            #quantidade =  (request.POST.get("quantidade", 0))
-            preco =  (request.POST.get("preco", 0))
-            id_categoria =  (request.POST.get("id_categoria", 0)) # id que vem da minha categoria, assim sabemos qual categoria esse produto é.
+            print(request.POST)
+            
+            nome =  request.POST.get("nome", 0)
+            ncm = request.POST.get("ncm", 0)
+            preco =  request.POST.get("preco", 0)
+            id_categoria =  request.POST.get("id_categoria", 0) # id que vem da minha categoria, assim sabemos qual categoria esse produto é.
+            estoqueAtual = request.POST.get("estoqueAtual", 0)
+            estoqueMinimo = request.POST.get("estoqueMinimo", 0)
+            importado = request.POST.get("importado", 0)
             
             #  Cria um novo objeto Produto com os dados recebidos do formulário
             produto = Produto(
                 nome = nome,
                 preco = preco,
-                categoria = Categoria.objects.get(id=id_categoria) # Busca a instância da Categoria correspondente ao ID enviado
+                ncm = ncm,
+                importado = importado,
+                estoqueAtual = estoqueAtual, 
+                estoqueMinimo = estoqueMinimo,
+                categoria = Categoria.objects.get(id=id_categoria), # Busca a instância da Categoria correspondente ao ID enviado
             )
     
             produto.save()  # Guarda as informações de cima no bando de dados
@@ -121,4 +127,14 @@ def editar_produto(request):
 
         #Salva os valores no banco
         produto.save()
+        return HttpResponseRedirect(reverse('produtos'))
+    
+def produto_show(request, id):
+    try:
+        produto = get_object_or_404(Produto, id=id)
+        return render(request, "produto_show.html", {"produto": produto})
+    
+    except Exception as e:
+        messages.error(request, str(e))
+        print(e)
         return HttpResponseRedirect(reverse('produtos'))

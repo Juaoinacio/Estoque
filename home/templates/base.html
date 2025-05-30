@@ -8,6 +8,8 @@
     
     {% endblock  %}
 
+ 
+
     <!-- Flowbtie -->
     <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
 
@@ -35,6 +37,7 @@
         <!-- Conteúdo principal -->
         <main class="flex-1 p-4 md:flex">
             <div class="p-4 w-full ">
+                   {% block voltar %} {% endblock  %}
                 <div class="p-4 border-2 border-gray-500 border-dashed rounded-lg ">
                     {% block content %}
                     {% endblock %}
