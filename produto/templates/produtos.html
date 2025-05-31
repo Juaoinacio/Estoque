@@ -38,21 +38,7 @@
                 <td class="px-6 py-2" >{{ produto.estoqueMinimo }}</td>                
                 <td class="px-6 py-2" > produto.entrada </td>
                 <td class="px-6 py-2" > produto.saida </td>
-                <td class="px-6 py-2" >
-                    <!-- Modal toggle -->
-                    <button class="text-white bg-blue-700 hover:bg-blue-800 font-semibold rounded px-3 py-1 " type="button" id="crud_modall"
-                        data-modal-target="crud-modal"
-                        data-modal-toggle="crud-modal"
-                        data-id="{{ produto.id }}"
-                        data-nome="{{ produto.nome }}"
-                        data-ncm="{{ produto.ncm }}"
-                        data-importado="{{produto.importado}}"
-                        data-estoqueatual="{{ produto.estoqueAtual }}"
-                        data-estoqueminimo="{{ produto.estoqueMinimo }}"
-                        data-categoria-id="{{ produto.categoria.id}}"
-                        data-preco="{{ produto.preco }}">
-                        Editar
-                    </button>
+                <td class="px-6 py-2" >{{ produto.importado|yesno:"Sim,Não" }}</td>
                 <td class="px-6 py-2">
                     <form method="POST" action="{% url 'deletar_produto' %}" onsubmit="return confirm('Deseja excluir esse produto')">
                         {% csrf_token %}
@@ -74,8 +60,5 @@
     
 <!-- Formulario de produto -->
     {% include "produto_forms.html" %}
-
-<!-- Modal para editar produto -->
-    {% include "produto_modal.html" %}
   
 {% endblock %}

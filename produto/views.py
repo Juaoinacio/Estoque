@@ -107,13 +107,19 @@ def deletar_produto(request):
         print(e)
         return HttpResponseRedirect(reverse('produtos'))
     
-def editar_produto(request):
-    if request.method == "POST":
+def editar_produto(request, id):
+    if request.method == "GET":
+        produto = get_object_or_404(Produto, id=id)
+        categoria = Categoria.objects.all()
+        context = {
+            "produto": produto,
+            "categorias": categoria
+        }
+        return render(request, "produto_edit.html", context)
+    elif request.method == "POST":
         # Pega o id do produto
         id = request.POST.get("id")
-
         print(request.POST)
-
     #Procura o produto no banco, caso de errado informa o erro 404
         produto = get_object_or_404(Produto, id=id)
 
@@ -121,20 +127,20 @@ def editar_produto(request):
         nome =  request.POST.get("nome", 0)
         preco =  request.POST.get("preco", 0)
         ncm = request.POST.get("ncm", 0)
-        importado = request.POST.get("importado", 0) == "on"
+        importado = 'importado' in request.POST
         estoqueAtual = request.POST.get("estoqueAtual", 0)
         estoqueMinimo = request.POST.get("estoqueMinimo", 0)
-        categoria =  request.POST.get("categoria", 0)
+        categoria = request.POST.get("categoria", 0)
 
         #Substituimos os Valores antigos pelos novos
-    
-        nome = nome
-        preco = preco
-        ncm = ncm
-        importado = importado
-        estoqueAtual = estoqueAtual 
-        estoqueMinimo = estoqueMinimo
-        categoria = Categoria.objects.get(id=categoria)
+      
+        produto.nome = nome
+        produto.preco = preco.replace(",", ".")
+        produto.ncm = ncm
+        produto.importado = importado
+        produto.estoqueAtual = estoqueAtual 
+        produto.estoqueMinimo = estoqueMinimo
+        produto.categoria = Categoria.objects.get(id=categoria)
 
         #Salva os valores no banco
         produto.save()
