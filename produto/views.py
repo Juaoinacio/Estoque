@@ -107,16 +107,28 @@ def deletar_produto(request):
         print(e)
         return HttpResponseRedirect(reverse('produtos'))
     
-def editar_produto(request, id):
-    if request.method == "GET":
+def produto_show(request, id):
+    try:
         produto = get_object_or_404(Produto, id=id)
+        return render(request, "produto_show.html", {"produto": produto})
+    
+    except Exception as e:
+        messages.error(request, str(e))
+        print(e)
+        return HttpResponseRedirect(reverse('produtos'))
+    
+def edit_show_produto(request):
+    if request.method == "POST":
+        produto = get_object_or_404(Produto, id=request.POST["id"])
         categoria = Categoria.objects.all()
         context = {
             "produto": produto,
             "categorias": categoria
         }
-        return render(request, "produto_edit.html", context)
-    elif request.method == "POST":
+    return render(request, "produto_edit.html", context)
+
+def salvar_produto(request, id):
+    if request.method == "POST":
         # Pega o id do produto
         id = request.POST.get("id")
         print(request.POST)
@@ -145,13 +157,4 @@ def editar_produto(request, id):
         #Salva os valores no banco
         produto.save()
         return HttpResponseRedirect(reverse('produtos'))
-    
-def produto_show(request, id):
-    try:
-        produto = get_object_or_404(Produto, id=id)
-        return render(request, "produto_show.html", {"produto": produto})
-    
-    except Exception as e:
-        messages.error(request, str(e))
-        print(e)
-        return HttpResponseRedirect(reverse('produtos'))
+

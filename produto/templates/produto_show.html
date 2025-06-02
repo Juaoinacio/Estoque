@@ -16,23 +16,16 @@
 
 <div class="grid grid-cols-2 items-center gap-4 mb-4">
     <h1 class="text-2xl font-bold">{{ produto.nome }}</h1>
-
     <div class="text-right">
-        <a href="{% url 'editar_produto' produto.id %}">
-            <button class="text-white bg-blue-700 hover:bg-blue-800 font-semibold rounded px-3 py-1">
-                Editar
-            </button>
-        </a>
+        <button id="Editar" data-id="{{produto.id}}" class="text-white bg-blue-700 hover:bg-blue-800 font-semibold rounded px-3 py-1">
+            Editar
+        </button>
     </div>
 </div>
 
 
 <table class="w-full text-sm text-left text-gray-500 row-span-2 col-span-2 p-12">
     <tbody>
-        <tr class="bg-gray-800 text-white">
-            <td class="px-4 py-2 border">ID</td>
-            <td class="px-4 py-2 border">{{ produto.id }}</td>
-        </tr>
         <tr class="bg-gray-800 text-white">
             <td class="px-4 py-2 border">Importado</td>
             <td class="px-4 py-2 border">{{ produto.importado|yesno:"Sim,Não" }}</td>
@@ -63,5 +56,31 @@
         </tr>
     </tbody>
 </table>
+
+<div id="FormEdit">
+
+</div>
+
+<script>
+$(document).ready(function(){
+    $("#Editar").on("click", function(){
+        $.ajax({
+            url: "{% url 'edit_show_produto' %}",  // Ajuste aqui
+            method: 'POST',
+            data: {
+                id: $(this).data("id"),
+                csrfmiddlewaretoken: '{{ csrf_token }}'  // Necessário no Django!
+            },
+            success: function(response) {
+                $("#FormEdit").html(response)
+            },
+            error: function(xhr) {
+                console.error("Erro ao enviar:", xhr.responseText);
+            }
+        });
+    });
+})
+</script>
+
 
 {% endblock %}

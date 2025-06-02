@@ -8,8 +8,7 @@ urlpatterns = [
     path("", views.index, name="produtos"),
     path("<int:id>/", views.produto_show, name="produto"),
     path("deletar_produto", views.deletar_produto, name="deletar_produto"),
-    path('editar_produto/<int:id>/', views.editar_produto, name='editar_produto'),
-
-#   |------------- Urls dos produto Minimo,Critico e Zerado. -------------|
+    path('edit_show_produto/', views.edit_show_produto, name='edit_show_produto'),
+    path('salvar_produto/<int:id>', views.salvar_produto, name='salvar_produto'),
    
 ]
