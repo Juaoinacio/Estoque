@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    {% if entradas %}
+    
+    <!-- Tabela que imprime os produto na home -->
+
+    <table class="w-full text-sm text-left text-gray-500 row-span-4 col-span-4 p-12">
+        <thead class="text-xs text-gray-300 uppercase bg-gray-700 text-center ">
+            <tr class="border">
+                <!-- Titulos -->
+                <th class="px-6 py-2 text-2xl" >Item</th>
+                <th class="px-6 py-2 text-2xl" >NF</th>
+                <th class="px-6 py-2 text-2xl" >Data</th>
+                <th class="px-6 py-2 text-2xl" >Tipodepagamento</th>
+                <th class="px-6 py-2 text-2xl" >Funcionario</th>
+            </tr>
+        </thead>
+        <tbody class="text-center ">
+            {% for e in entradas %}
+            <tr>
+                <td class="px-6 py-2 text-2xl">{{ e.pk }}</td>
+                <td class="px-6 py-2 text-2xl">{{ e.nf_formatado}}</td>
+                <td class="px-6 py-2 text-2xl">{{ e.criado }}</td>
+                <td class="px-6 py-2 text-2xl">{{ e.tp}}</td>
+                <td class="px-6 py-2 text-2xl">{{ e.funcionario }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+        
+    {% else %}
+   <div class="flex items-center justify-center h-screen">
+        <h1>Nenhuma entrada</h1>
+    </div>
+
+    {% endif %}
+    
+  
+{% endblock %}

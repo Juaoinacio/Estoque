@@ -132,7 +132,8 @@ def salvar_produto(request, id):
         # Pega o id do produto
         id = request.POST.get("id")
         print(request.POST)
-    #Procura o produto no banco, caso de errado informa o erro 404
+
+        #Procura o produto no banco, caso de errado informa o erro 404
         produto = get_object_or_404(Produto, id=id)
 
         #Recebemos os atributos via POST

@@ -20,7 +20,12 @@ class Estoque(CarimboData):
         db_table = "Estoque" 
 
     def __str__(self):
-        return f"{self.pk}"
+        return f"{self.pk} - {self.criado.strftime("%d-%m-%Y")} - {self.nf}"
+    
+    # coloca 0 afrente ao numero
+    def nf_formatado(self):
+        return str(self.nf).zfill(3)
+
 
 class EstoqueItem(models.Model):
     estoque = models.ForeignKey(Estoque, on_delete=models.CASCADE)
