@@ -44,7 +44,7 @@
                     <form method="POST" action="{% url 'delete_produto' %}" onsubmit="return confirm('Deseja excluir esse produto')">
                         {% csrf_token %}
                         <input type="hidden" name="id" value="{{ produto.id }}">
-                        <button type="submit" class="bg-red-500 hover:bg-red-600 text-white font-semibold py-1 px-3 rounded">Deletar</button>
+                        <button type="submit" onclick="event.stopPropagation();" class="bg-red-500 hover:bg-red-600 text-white font-semibold py-1 px-3 rounded cursor-pointer">Deletar</button>
                     </form>
                 </td>
             </tr>

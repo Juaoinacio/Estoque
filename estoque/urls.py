@@ -2,6 +2,7 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path("", views.index, name="index_estoque"),
-    path("<int:id>", views.show,name="show_estoque"),
+    path("", views.index, name="index_estoque_entrada"),
+    path("adicionaritem/", views.add , name="add_estoque"),
+    path("<int:id>", views.show, name="show_estoque"),
 ]

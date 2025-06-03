@@ -1,4 +1,4 @@
-from pyexpat.errors import messages
+from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
@@ -13,13 +13,12 @@ def index(request):
             }
             return render(request, "estoque_entrada.html", content)
         else:
-            messages.error(request, str(e))
-            print(e)
-            return HttpResponseRedirect(reverse('index_estoque'))
+            messages.error(request, "Metodo não permitido")
+            return redirect(reverse("index_produto"))
     except Exception as e:
         messages.error(request, str(e))
         print(e)
-        return HttpResponseRedirect(reverse('index_estoque'))
+        return redirect(reverse('index_produto'))
     
 def show(request, id):
     try:
@@ -32,11 +31,24 @@ def show(request, id):
         else:
             messages.error(request, str(e))
             print(e)
-            return HttpResponseRedirect(reverse('index_estoque'))
+            return render('index_estoque')
     except Exception as e:
         messages.error(request, str(e))
         print(e)
-        return HttpResponseRedirect(reverse('index_estoque'))
+        return redirect(reverse("show_estoque", kwargs={"id": request.GET["id"]}))
+    
+def add(request):
+    try:
+        if request.method == "GET":
+            context = {
+
+            }
+            return render(request, "estoque_forms_entrada.html", context)
+          
+    except Exception as e:
+        messages.error(request, str(e))
+        print(e)
+        return redirect(reverse('index_estoque_entrada'))
         
 
 

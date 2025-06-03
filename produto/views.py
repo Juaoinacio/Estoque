@@ -125,9 +125,8 @@ def edit(request):
             }
             return render(request, "produto_edit.html", context)
         else:
-            messages.error(request, str(e))
-            print(e)
-            return HttpResponseRedirect(reverse('edit_produto'))
+            messages.error(request, "Metodo não permitdo")
+            return redirect(reverse("index_produto"))
     except Exception as e:
             messages.error(request, str(e))
             print(e)
@@ -163,12 +162,11 @@ def save(request, id):
 
             #Salva os valores no banco
             produto.save()
-            return HttpResponseRedirect(reverse('edit_produto'))
+            return redirect(reverse("index_produto"))
         else:
-            messages.error(request, str(e))
-            print(e)
-            return HttpResponseRedirect(reverse('edit_produto'))
+            messages.error(request, "Metodo não permitido")
+            return redirect(reverse("show_produto", kwargs={"id": request.GET["id"]}))
     except Exception as e:
             messages.error(request, str(e))
             print(e)
-            return HttpResponseRedirect(reverse('edit_produto'))
+            return redirect(reverse("show_produto", kwargs={"id": request.POST.get("id")}))
