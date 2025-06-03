@@ -1,6 +1,10 @@
+from pyexpat.errors import messages
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
+from django.urls import reverse
 from .models import Estoque
-def entrada(request):
+
+def index(request):
     try:
         if request.method == "GET":
             entradas = Estoque.objects.filter(movimento='E')
@@ -8,10 +12,16 @@ def entrada(request):
                 "entradas": entradas
             }
             return render(request, "estoque_entrada.html", content)
-    except:
-        return redirect("produto")
+        else:
+            messages.error(request, str(e))
+            print(e)
+            return HttpResponseRedirect(reverse('index_estoque'))
+    except Exception as e:
+        messages.error(request, str(e))
+        print(e)
+        return HttpResponseRedirect(reverse('index_estoque'))
     
-def detalhe_entrada(request, id):
+def show(request, id):
     try:
         if request.method == "GET":
             entrada = Estoque.objects.get(id=id)
@@ -19,8 +29,15 @@ def detalhe_entrada(request, id):
                 "entrada": entrada
             }
             return render(request, "estoque_detalhe_entrada.html", content)
-    except:
-        return redirect("produto")
+        else:
+            messages.error(request, str(e))
+            print(e)
+            return HttpResponseRedirect(reverse('index_estoque'))
+    except Exception as e:
+        messages.error(request, str(e))
+        print(e)
+        return HttpResponseRedirect(reverse('index_estoque'))
+        
 
 
 

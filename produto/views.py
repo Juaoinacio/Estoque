@@ -5,8 +5,6 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.core.validators import RegexValidator
 from django.core.exceptions import ValidationError
-from datetime import datetime
-from django.db.models import Sum
 
 def validar_codigo(codigo):
     validador = RegexValidator(regex='^\d+$', message='O código de barras deve conter apenas números.')
@@ -16,8 +14,7 @@ def validar_codigo(codigo):
     except ValidationError:
         return False
 
-
- # Tela inicial
+# Tela inicial
 def index(request):
     try:
         # Metodo GET da minha url ""
@@ -53,12 +50,9 @@ def index(request):
                 "categorias": categoria,
             }
 
-            
             return render(request, "produtos.html", context)
         # Metodo POST da minha url ""
         elif request.method == "POST":
-
-            print(request.POST)
             
             nome =  request.POST.get("nome", 0)
             ncm = request.POST.get("ncm", 0)
@@ -80,82 +74,101 @@ def index(request):
             )
     
             produto.save()  # Guarda as informações de cima no bando de dados
-            return HttpResponseRedirect(reverse('produtos'))
-        
+            return HttpResponseRedirect(reverse('index_produto'))
         else:
-            messages.error(request, ("Método Http não permitido!"))
-            return HttpResponseRedirect(reverse('produtos'))
-
+            messages.error(request, str(e))
+            print(e)
+            return HttpResponseRedirect(reverse('index_produto'))
     except Exception as e:
         messages.error(request, str(e))
         print(e)
-        return HttpResponseRedirect(reverse('produtos'))
+        return HttpResponseRedirect(reverse('index_produto'))
 
-def deletar_produto(request):
+def delete(request):
     try:
         if request.method == "POST":
             id = request.POST.get("id")
             produto = get_object_or_404(Produto, id=id)
             produto.delete()
-            return HttpResponseRedirect(reverse('produtos'))
+            return HttpResponseRedirect(reverse('index_produto'))
         else: 
             messages.error(request, str(e))
             print(e)
-            return HttpResponseRedirect(reverse('produtos'))
+            return HttpResponseRedirect(reverse('index_produto'))
     except Exception as e:
         messages.error(request, str(e))
         print(e)
-        return HttpResponseRedirect(reverse('produtos'))
+        return HttpResponseRedirect(reverse('index_produto'))
     
-def produto_show(request, id):
+def show(request, id):
     try:
-        produto = get_object_or_404(Produto, id=id)
-        return render(request, "produto_show.html", {"produto": produto})
-    
+        if request.method == "GET":
+            produto = get_object_or_404(Produto, id=id)
+            return render(request, "produto_show.html", {"produto": produto})
+        else:
+            messages.error(request, str(e))
+            print(e)
+            return HttpResponseRedirect(reverse('show_produto'))
     except Exception as e:
         messages.error(request, str(e))
         print(e)
-        return HttpResponseRedirect(reverse('produtos'))
+        return HttpResponseRedirect(reverse('show_produto'))
     
-def edit_show_produto(request):
-    if request.method == "POST":
-        produto = get_object_or_404(Produto, id=request.POST["id"])
-        categoria = Categoria.objects.all()
-        context = {
-            "produto": produto,
-            "categorias": categoria
-        }
-    return render(request, "produto_edit.html", context)
+def edit(request):
+    try:
+        if request.method == "POST":
+            produto = get_object_or_404(Produto, id=request.POST["id"])
+            categoria = Categoria.objects.all()
+            context = {
+                "produto": produto,
+                "categorias": categoria
+            }
+            return render(request, "produto_edit.html", context)
+        else:
+            messages.error(request, str(e))
+            print(e)
+            return HttpResponseRedirect(reverse('edit_produto'))
+    except Exception as e:
+            messages.error(request, str(e))
+            print(e)
+            return HttpResponseRedirect(reverse('edit_produto'))
 
-def salvar_produto(request, id):
-    if request.method == "POST":
-        # Pega o id do produto
-        id = request.POST.get("id")
-        print(request.POST)
+def save(request, id):
+    try:
+        if request.method == "POST":
+            # Pega o id do produto
+            id = request.POST.get("id")
 
-        #Procura o produto no banco, caso de errado informa o erro 404
-        produto = get_object_or_404(Produto, id=id)
+            #Procura o produto no banco, caso de errado informa o erro 404
+            produto = get_object_or_404(Produto, id=id)
 
-        #Recebemos os atributos via POST
-        nome =  request.POST.get("nome", 0)
-        preco =  request.POST.get("preco", 0)
-        ncm = request.POST.get("ncm", 0)
-        importado = 'importado' in request.POST
-        estoqueAtual = request.POST.get("estoqueAtual", 0)
-        estoqueMinimo = request.POST.get("estoqueMinimo", 0)
-        categoria = request.POST.get("categoria", 0)
+            #Recebemos os atributos via POST
+            nome =  request.POST.get("nome", 0)
+            preco =  request.POST.get("preco", 0)
+            ncm = request.POST.get("ncm", 0)
+            importado = 'importado' in request.POST
+            estoqueAtual = request.POST.get("estoqueAtual", 0)
+            estoqueMinimo = request.POST.get("estoqueMinimo", 0)
+            categoria = request.POST.get("categoria", 0)
 
-        #Substituimos os Valores antigos pelos novos
-      
-        produto.nome = nome
-        produto.preco = preco.replace(",", ".")
-        produto.ncm = ncm
-        produto.importado = importado
-        produto.estoqueAtual = estoqueAtual 
-        produto.estoqueMinimo = estoqueMinimo
-        produto.categoria = Categoria.objects.get(id=categoria)
+            #Substituimos os Valores antigos pelos novos
+        
+            produto.nome = nome
+            produto.preco = preco.replace(",", ".")
+            produto.ncm = ncm
+            produto.importado = importado
+            produto.estoqueAtual = estoqueAtual 
+            produto.estoqueMinimo = estoqueMinimo
+            produto.categoria = Categoria.objects.get(id=categoria)
 
-        #Salva os valores no banco
-        produto.save()
-        return HttpResponseRedirect(reverse('produtos'))
-
+            #Salva os valores no banco
+            produto.save()
+            return HttpResponseRedirect(reverse('edit_produto'))
+        else:
+            messages.error(request, str(e))
+            print(e)
+            return HttpResponseRedirect(reverse('edit_produto'))
+    except Exception as e:
+            messages.error(request, str(e))
+            print(e)
+            return HttpResponseRedirect(reverse('edit_produto'))

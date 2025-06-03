@@ -5,10 +5,10 @@ urlpatterns = [
 
 #   |---------------------------- Crud dos produtos ----------------------|
 
-    path("", views.index, name="produtos"),
-    path("<int:id>/", views.produto_show, name="produto"),
-    path("deletar_produto", views.deletar_produto, name="deletar_produto"),
-    path('edit_show_produto/', views.edit_show_produto, name='edit_show_produto'),
-    path('salvar_produto/<int:id>', views.salvar_produto, name='salvar_produto'),
+    path("", views.index, name="index_produto"),
+    path("<int:id>/", views.show, name="show_produto"),
+    path("deletar_produto", views.delete, name="delete_produto"),
+    path('edit_show_produto/', views.edit, name='edit_produto'),
+    path('salvar_produto/<int:id>', views.save, name='save_produto'),
    
 ]

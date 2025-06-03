@@ -1,5 +1,5 @@
 <div class="flex gap-8 mt-12">
-    <form method="POST" action="{% url 'salvar_produto' produto.id %}" class="w-full p-2 bg-gray-800">
+    <form method="POST" action="{% url 'save_produto' produto.id %}" class="w-full p-2 bg-gray-800">
         {% csrf_token %}
         <input type="hidden" name="id" value="{{produto.id}}">
         <div class="grid gap-4 grid-cols-8 bg-gray-800">

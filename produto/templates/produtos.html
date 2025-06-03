@@ -30,7 +30,7 @@
             <!-- Produtos -->
             {% for produto in produtos %}
             <tr class="bg-gray-800 text-white hover:bg-gray-700 cursor-pointer"
-                onclick="window.location.href='{% url 'produto' produto.id %}'">
+                onclick="window.location.href='{% url 'show_produto' produto.id %}'">
                 <td class="px-6 py-2 text-2xl">{{ produto.nome }}</td>
                 <td class="px-6 py-2 text-2xl">{{ produto.ncm }}</td>
                 <td class="px-6 py-2 text-2xl">{{ produto.categoria }}</td>
@@ -41,7 +41,7 @@
                 <td class="px-6 py-2 text-2xl">#</td>
                 <td class="px-6 py-2 text-2xl">{{ produto.importado|yesno:"Sim,Não" }}</td>
                 <td class="px-6 py-2 text-2xl">
-                    <form method="POST" action="{% url 'deletar_produto' %}" onsubmit="return confirm('Deseja excluir esse produto')">
+                    <form method="POST" action="{% url 'delete_produto' %}" onsubmit="return confirm('Deseja excluir esse produto')">
                         {% csrf_token %}
                         <input type="hidden" name="id" value="{{ produto.id }}">
                         <button type="submit" class="bg-red-500 hover:bg-red-600 text-white font-semibold py-1 px-3 rounded">Deletar</button>
