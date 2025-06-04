@@ -1,21 +1,59 @@
 {% extends "base.html" %}
 
+{% block voltar %}
+<div class="grid flex w-12">
+    <a href="{% url 'index_estoque_entrada' %}" class="inline-flex items-center gap-2 px-3 py-2 mb-4 text-md font-medium text-gray-800 bg-gray-100 rounded-lg hover:bg-gray-200">
+        <svg class="w-5 h-5 text-gray-800" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5H1m0 0 4 4M1 5l4-4" />
+        </svg>
+            Voltar
+    </a>
+</div>
+{% endblock  %}
+
 {% block content %}
 
-    <div class="grid flex w-12">
-        <a href="{% url 'index_estoque_entrada' %}" class="inline-flex items-center gap-2 px-3 py-2 mb-4 text-md font-medium text-gray-800 bg-gray-100 rounded-lg hover:bg-gray-200">
-            <svg class="w-5 h-5 text-gray-800" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
-                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5H1m0 0 4 4M1 5l4-4" />
-            </svg>
-            Voltar
-        </a>
-    </div>
 
-    <div class="grid grid-cols-2 items-center gap-4 mb-4">
-        <h1 class="text-2xl font-bold">Cadastrar itens entrada</h1>
-    </div>
+<div class="flex gap-8 mt-12">
+    <form method="POST" action="" class="w-full p-2 bg-gray-800">
+        {% csrf_token %}
+        <div class="grid gap-4 grid-cols-4 bg-gray-800 ">
+            <!-- Nota Fiscal -->
+            <div class="flex flex-col">
+                <label for="tipoPagamento" class="mb-1 text-lg font-medium text-white">Tipo de pagamento:</label>
+                <select name="tipoPagamento" id="tipoPagamento" class="p-2 border border-gray-300 rounded-lg text-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500" required>
+                    <option value="" disabled selected>Selecionar Nota fiscal</option>
+                    {%for e in estoque%}
+                        <option value="{{e.id}}">{{e.nf}}</option>
+                    {% endfor%}
+                </select>
+            </div>
+
+            <!-- Produto -->
+            <div class="flex flex-col">
+                <label for="notaFiscal" class="mb-1 text-lg font-medium text-white">Nota Fiscal:</label>
+                <select name="notaFiscal" id="notaFiscal" class="p-2 border border-gray-300 rounded-lg text-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500" required>
+                    <option value="" disabled selected>Selecionar Produto</option>
+                    {%for p in produto%}
+                        <option value="{{p.id}}">{{p.nome}}</option>
+                    {% endfor%}
+                </select>
+            </div>
 
 
-<h1>Entrada do estoque</h1>
+            <!-- Quantidade -->
+            <div class="flex flex-col">
+                <label for="nome4" class=" mb-1 text-lg font-medium text-white">Quantidade</label>
+                <input type="text" name="quantidade" id="" class=" p-2 border border-gray-300 rounded-lg text-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500"required="">
+            </div>
+
+             <!-- Quantidade -->
+            <div class="flex flex-col">
+                <label for="nome4" class=" mb-1 text-lg font-medium text-white">Saldo</label>
+
+            </div>
+        </div>
+    </form>
+</div>
 
 {% endblock content %}

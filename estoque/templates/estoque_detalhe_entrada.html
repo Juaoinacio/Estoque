@@ -1,17 +1,17 @@
 {% extends "base.html" %}
 
-{% block content %}
-
+{% block voltar %}
     <div class="grid flex w-12">
         <a href="{% url 'index_estoque_entrada' %}" class="inline-flex items-center gap-2 px-3 py-2 mb-4 text-md font-medium text-gray-800 bg-gray-100 rounded-lg hover:bg-gray-200">
             <svg class="w-5 h-5 text-gray-800" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5H1m0 0 4 4M1 5l4-4" />
             </svg>
-            Voltar
+                Voltar
         </a>
     </div>
+{% endblock  %}
 
-
+{% block content %}
     <table class="w-full text-sm text-left text-gray-500 row-span-4 col-span-4 p-12">
         <thead class="text-xs text-gray-300 uppercase bg-gray-700 text-center ">
             <tr class="border">

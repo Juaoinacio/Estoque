@@ -3,6 +3,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from .models import Estoque
+from produto.models import Produto
 
 def index(request):
     try:
@@ -39,9 +40,12 @@ def show(request, id):
     
 def add(request):
     try:
+        produto = Produto.objects.all()
+        estoque = Estoque.objects.all()
         if request.method == "GET":
             context = {
-
+                "produto" : produto,
+                "estoque" : estoque,
             }
             return render(request, "estoque_forms_entrada.html", context)
           
@@ -49,7 +53,7 @@ def add(request):
         messages.error(request, str(e))
         print(e)
         return redirect(reverse('index_estoque_entrada'))
-        
+
 
 
 
