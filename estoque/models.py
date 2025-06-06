@@ -6,8 +6,7 @@ class Estoque(models.Model):
     quantidade = models.BigIntegerField()
 
     class Meta:
-        ordering = ('-criado',) # Ordenar de forma decrescente
         db_table = "Estoque" 
 
     def __str__(self):
-        return f"{self.pk} - {self.criado.strftime("%d-%m-%Y")} - {self.nf}"
+        return f"Nome: {self.produto.nome} - QTD: {self.quantidade}"
