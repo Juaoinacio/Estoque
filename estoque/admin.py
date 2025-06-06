@@ -1,13 +1,8 @@
 from django.contrib import admin
-from .models import Estoque, EstoqueItem
-
-class EstoqueItensInLine(admin.TabularInline):
-    model = EstoqueItem
-    extra = 0
+from .models import Estoque
 
 @admin.register(Estoque)
 class EstoqueAdimin(admin.ModelAdmin):
-    inlines = (EstoqueItensInLine, ) 
     list_display = (
         "__str__", "nf","funcionario",
     )

@@ -2,7 +2,7 @@ from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
-from .models import Estoque, EstoqueItem
+from .models import Estoque
 from produto.models import Produto
 
 def index(request):
@@ -57,16 +57,6 @@ def add(request):
             id_produto = request.POST.get("id_produto")
             quantidade = request.POST.get("quantidade")
             print(id_estoque,id_produto,quantidade)
-
-            entrada = EstoqueItem (
-                estoque = Estoque.objects.get(id=id_estoque),
-                produto = Produto.objects.get(id=id_produto),
-                quantidade = quantidade,
-
-
-            )
-
-            entrada.save()
 
     except Exception as e:
         messages.error(request, str(e))
