@@ -35,8 +35,8 @@
 
                <select id="estoqueSelect" class="p-2 border border-gray-300 rounded-lg bg-gray-800 text-lg focus:ring-blue-500 focus:border-blue-500 text-white">
                   <option value="" disabled selected hidden>Estoque</option>
-                  <option value="{% url 'index_estoque_entrada' %}">Entrada</option>
-                  <option value="#">Saída</option>
+                  <option value={% url 'index_compra' %}>Entrada</option>
+                  <option value={% url 'index_venda' %}>Saída</option>
                </select>
             </div>
          </li>
