@@ -13,31 +13,27 @@
 {% block content %}
 
 <!-- Histórico de compra e venda -->
-<div class="grid grid-cols-2 gap-4">
-    <div class="flex items-center rounded-sm bg-gray-800 h-28">
-        <article class="font-[sans-serif] ml-4">
-            <h1 class="text-2xl text-gray-300">Cadastro de ordem de Compra e Histórico</h1>
-            <h2 class="text-lg text-gray-300 ml-4 mt-2"> Clique  <a href="#" class="underline text-blue-400 hover:text-blue-500">Aqui</a> para ver histórico de compras</h2>
-        </article>
-    </div>
-    <div class="flex items-center rounded-sm bg-gray-800 h-28">
-        <article class="font-[sans-serif] ml-4">
-            <h1 class="text-2xl text-gray-300">Cadastrar Ordem de Venda e Histórico</h1>
-            <h2 class="text-lg text-gray-300 ml-4 mt-2"> Clique  <a href="#" class="underline text-green-400 hover:text-green-500">Aqui</a> para ver todas as ordem de venda </h2>
-        </article>
-    </div>
-    <div class="flex items-center rounded-sm bg-gray-800 h-28">
-        <article class="font-[sans-serif] ml-4">
-            <h1 class="text-2xl text-gray-300">Não sei o que fazer !!!!</h1>
-            <h2 class="text-lg text-gray-300 ml-4 mt-2"> Clique  <a href="" class="underline text-green-400 hover:text-green-500">Aqui</a> para ver todas as ordem de venda </h2>
-        </article>
-    </div>
-    <div class="flex items-center rounded-sm bg-gray-800 h-28">
-        <article class="font-[sans-serif] ml-4">
-            <h1 class="text-2xl text-gray-300">Não sei o que fazer !!!!</h1>
-            <h2 class="text-lg text-gray-300 ml-4 mt-2"> Clique  <a href="" class="underline text-blue-400 hover:text-blue-500">Aqui</a> para ver todas as ordem de compras</h2>
-        </article>
-    </div>
+<div class="grid grid-cols-4 gap-4">
+    <a href="{% url 'index_produto'%}">
+        <div class="flex items-center justify-center rounded-sm bg-gray-800 h-28 font-[sans-serif] hover:bg-gray-700">
+            <h1 class="text-gray-300 text-3xl">Cadastrar Produto</h1>
+        </div>
+    </a>
+    <a href="{% url 'index_compra'%}">
+        <div class="flex items-center justify-center rounded-sm bg-gray-800 h-28 font-[sans-serif] hover:bg-gray-700">
+            <h1 class="text-gray-300 text-3xl">Cadastrar Ordem de compra</h1>
+        </div>
+    </a>
+    <a href="{% url 'index_venda'%}">
+        <div class="flex items-center justify-center rounded-sm bg-gray-800 h-28 font-[sans-serif] hover:bg-gray-700">
+            <h1 class="text-gray-300 text-3xl">Cadastrar Ordem de Venda</h1>
+        </div>
+    </a>
+    <a href="#">
+        <div class="flex items-center justify-center rounded-sm bg-gray-800 h-28 font-[sans-serif] hover:bg-gray-700">
+            <h1 class="text-gray-300 text-3xl">Cadastrar Nota Fiscal</h1>
+        </div>
+    </a>
 </div>
 
 <!-- Grid do Grafico UM -->
@@ -65,7 +61,7 @@
     </div>
     <div class="flex items-center rounded-sm bg-gray-800 h-28 p-4">
         <article class="font-[sans-serif]">
-            <h1 class="text-2xl text-gray-300">Todos os produtos</h1>
+            <h1 class="text-2xlfl text-gray-300">Todos os produtos</h1>
             <h2 class="text-lg text-gray-300 ml-4 mt-2"> Clique  <a href="{% url 'index_produto' %}" class="underline text-blue-400">Aqui</a> para ver todos os produtos</h2>
         </article>
     </div>
