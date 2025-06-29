@@ -34,12 +34,8 @@ def index(request):
                     dados = {
                         "importado" : p.importado,
                         "id" : p.id,
-                        "nome" : p.nome, 
-                        "ncm": p.ncm,
+                        "nome" : p.nome,
                         "categoria": p.categoria.nome,
-                        "preco" : p.preco,
-                        "estoqueAtual" : p.estoqueAtual,
-                        "estoqueMinimo" : p.estoqueMinimo
                     }
 
                     # instancio o "ItemCompra" para usar seus atributos e buscar o ultimo 
