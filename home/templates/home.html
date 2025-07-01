@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}Sistema de estoque WEB{% endblock title %}
+{% block title %}Sistema de Estoque WEB - Dashboard{% endblock title %}
 
 {% block grafico %} 
     <script src="https://code.highcharts.com/highcharts.js"></script>
@@ -8,86 +8,167 @@
     <script src="https://code.highcharts.com/modules/exporting.js"></script>
     <script src="https://code.highcharts.com/modules/export-data.js"></script>
     <script src="https://code.highcharts.com/modules/accessibility.js"></script>
-{% endblock  %}
+{% endblock %}
 
 {% block content %}
 
-<div class="grid grid-cols-4 gap-4">
-
-    <a href="{% url 'index_produto' %}">
-        <div class="flex items-center justify-center rounded-sm bg-gray-800 h-28 text-3xl text-gray-300 hover:bg-gray-700">
-            <h1>Cadastrar produto</h1>
-        </div>
-    </a>
-   
-    <a href="{% url 'index_produto' %}">
-        <div class="flex items-center justify-center rounded-sm bg-gray-800 h-28 text-3xl text-gray-300 hover:bg-gray-700">
-            <h1>Cadastrar produto</h1>
-        </div>
-    </a>
-
-    <a href="{% url 'index_produto' %}">
-        <div class="flex items-center justify-center rounded-sm bg-gray-800 h-28 text-3xl text-gray-300 hover:bg-gray-700">
-            <h1>Cadastrar produto</h1>
-        </div>
-    </a>
-
-    <a href="{% url 'index_produto' %}">
-        <div class="flex items-center justify-center rounded-sm bg-gray-800 h-28 text-3xl text-gray-300 hover:bg-gray-700">
-            <h1>Cadastrar produto</h1>
-        </div>
-    </a>
+<!-- Header da Dashboard -->
+<div class="my-8 ml-4">
+    <h1 class="text-4xl font-bold text-gray-800 mb-2">Dashboard do Estoque</h1>
+    <p class="text-gray-600">Visão geral do seu sistema de gestão de estoque</p>
 </div>
 
-{% include "_graficoUm.html" %}
+<!-- Cards de Relatórios Financeiros -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+    <div class="bg-white rounded-lg p-6 hover:bg-gray-50 transition-colors duration-300 shadow-md">
+        <div class="flex items-center justify-between mb-4">
+            <h3 class="text-xl font-semibold text-green-600">Total de Vendas</h3>
+            <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+            </svg>
+        </div>
+        <p class="text-3xl font-bold text-gray-800 mb-2">R$ {{ total_vendas|floatformat:2|default:"0,00" }}</p>
+        <p class="text-gray-600 mb-4">Receita total de vendas realizadas</p>
+        <a href="#" class="inline-flex items-center text-green-600 hover:text-green-700 font-medium">
+            Ver relatório
+            <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+            </svg>
+        </a>
+    </div>
 
-<div class="grid grid-cols-2 gap-4 mb-4">
-    <div class="flex items-center rounded-sm bg-gray-800 h-28 p-4">
-        <article class="font-[sans-serif]">
-            <h1 class="text-2xl text-gray-300">Minimos</h1>
-            <h2 class="text-lg text-gray-300 ml-4 mt-2"> Clique <a href="" class="underline text-yellow-400">Aqui</a> para ver todos os produtos minimos</h2>
-        </article>
+    <div class="bg-white rounded-lg p-6 hover:bg-gray-50 transition-colors duration-300 shadow-md">
+        <div class="flex items-center justify-between mb-4">
+            <h3 class="text-xl font-semibold text-orange-600">Total de Compras</h3>
+            <svg class="w-6 h-6 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-2.293 2.293c-.195.195-.195.512 0 .707l1.414 1.414c.195.195.512.195.707 0L10 14m0 0h8"></path>
+            </svg>
+        </div>
+        <p class="text-3xl font-bold text-gray-800 mb-2">R$ {{ total_compras|floatformat:2|default:"0,00" }}</p>
+        <p class="text-gray-600 mb-4">Valor total investido em compras</p>
+        <a href="#" class="inline-flex items-center text-orange-600 hover:text-orange-700 font-medium">
+            Ver relatório
+            <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+            </svg>
+        </a>
     </div>
-    <div class="flex items-center rounded-sm bg-gray-800 h-28 p-4">
-        <article class="font-[sans-serif]">
-            <h1 class="text-2xl text-gray-300">Criticos</h1>
-            <h2 class="text-lg text-gray-300 ml-4 mt-2"> Clique  <a href="" class="underline text-red-400">Aqui</a> para ver todos os produtos críticos</h2>
-        </article>
-    </div>
-    <div class="flex items-center rounded-sm bg-gray-800 h-28 p-4">
-        <article class="font-[sans-serif]">
-            <h1 class="text-2xl text-gray-300">Zerados</h1>
-            <h2 class="text-lg text-gray-300 ml-4 mt-2"> Clique <a href="" class="underline text-gray-400">Aqui</a> para ver todos os produtos zerados</h2>
-        </article>
-    </div>
-    <div class="flex items-center rounded-sm bg-gray-800 h-28 p-4">
-        <article class="font-[sans-serif]">
-            <h1 class="text-2xlfl text-gray-300">Todos os produtos</h1>
-            <h2 class="text-lg text-gray-300 ml-4 mt-2"> Clique  <a href="{% url 'index_produto' %}" class="underline text-blue-400">Aqui</a> para ver todos os produtos</h2>
-        </article>
+
+    <div class="bg-white rounded-lg p-6 hover:bg-gray-50 transition-colors duration-300 shadow-md">
+        <div class="flex items-center justify-between mb-4">
+            <h3 class="text-xl font-semibold text-purple-600">Lucro Bruto</h3>
+            <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path>
+            </svg>
+        </div>
+        <p class="text-3xl font-bold text-gray-800 mb-2">R$ {{ lucro_bruto|floatformat:2|default:"0,00" }}</p>
+        <p class="text-gray-600 mb-4">Diferença entre vendas e compras</p>
+        <a href="#" class="inline-flex items-center text-purple-600 hover:text-purple-700 font-medium">
+            Ver relatório
+            <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+            </svg>
+        </a>
     </div>
 </div>
 
-{% include "_graficoDois.html" %}
+<!-- Gráfico Principal -->
+<div class="mb-8">
+    {% include "_graficoUm.html" %}
+</div>
 
-<div class="grid grid-cols-3 gap-4 mb-4">
-    <div class="flex items-center h-24 rounded-sm bg-gray-800 p-4">
-        <article class="font-[sans-serif]">
-            <h1 class="text-2xl text-gray-300">Total de Vendas</h1>
-            <h2 class="text-lg text-gray-300 ml-4 mt-2"> Clique <a href="" class="underline text-yellow-400">Aqui</a> para ver todos os produtos minimos</h2>
-        </article>
+<!-- Cards de Status do Estoque -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+    <div class="bg-white rounded-lg p-6 border-l-4 border-yellow-400 hover:bg-gray-50 transition-colors duration-300 shadow-md">
+        <div class="flex items-center justify-between mb-4">
+            <h3 class="text-xl font-semibold text-yellow-600">Mínimos</h3>
+            <svg class="w-6 h-6 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z"></path>
+            </svg>
+        </div>
+        <p class="text-gray-600 mb-4">Produtos com estoque baixo que precisam de reposição</p>
+        <a href="#" class="inline-flex items-center text-yellow-600 hover:text-yellow-700 font-medium">
+            Ver produtos
+            <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+            </svg>
+        </a>
     </div>
-    <div class="flex items-center h-24 rounded-sm bg-gray-800 p-4">
-        <article class="font-[sans-serif]">
-            <h1 class="text-2xl text-gray-300">Total de Compras</h1>
-            <h2 class="text-lg text-gray-300 ml-4 mt-2"> Clique <a href="" class="underline text-yellow-400">Aqui</a> para ver todos os produtos minimos</h2>
-        </article>
+
+    <div class="bg-white rounded-lg p-6 border-l-4 border-red-400 hover:bg-gray-50 transition-colors duration-300 shadow-md">
+        <div class="flex items-center justify-between mb-4">
+            <h3 class="text-xl font-semibold text-red-600">Críticos</h3>
+            <svg class="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+        </div>
+        <p class="text-gray-600 mb-4">Produtos em situação crítica que requerem atenção imediata</p>
+        <a href="#" class="inline-flex items-center text-red-600 hover:text-red-700 font-medium">
+            Ver produtos
+            <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+            </svg>
+        </a>
     </div>
-    <div class="flex items-center h-24 rounded-sm bg-gray-800 p-4">
-        <article class="font-[sans-serif]">
-            <h1 class="text-2xl text-gray-300">Total de Compras e Vendas </h1>
-            <h2 class="text-lg text-gray-300 ml-4 mt-2"> Clique <a href="" class="underline text-yellow-400">Aqui</a> para ver todos os produtos minimos</h2>
-        </article>
+
+    <div class="bg-white rounded-lg p-6 border-l-4 border-gray-400 hover:bg-gray-50 transition-colors duration-300 shadow-md">
+        <div class="flex items-center justify-between mb-4">
+            <h3 class="text-xl font-semibold text-gray-600">Zerados</h3>
+            <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4"></path>
+            </svg>
+        </div>
+        <p class="text-gray-600 mb-4">Produtos sem estoque disponível</p>
+        <a href="#" class="inline-flex items-center text-gray-600 hover:text-gray-700 font-medium">
+            Ver produtos
+            <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+            </svg>
+        </a>
+    </div>
+
+    <div class="bg-white rounded-lg p-6 border-l-4 border-blue-400 hover:bg-gray-50 transition-colors duration-300 shadow-md">
+        <div class="flex items-center justify-between mb-4">
+            <h3 class="text-xl font-semibold text-blue-600">Todos os Produtos</h3>
+            <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
+            </svg>
+        </div>
+        <p class="text-gray-600 mb-4">Visualizar todos os produtos cadastrados no sistema</p>
+        <a href="#" class="inline-flex items-center text-blue-600 hover:text-blue-700 font-medium">
+            Ver produtos
+            <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+            </svg>
+        </a>
+    </div>
+</div>
+
+<!-- Segundo Gráfico -->
+<div class="mb-8">
+    {% include "_graficoDois.html" %}
+</div>
+
+<!-- Cards de Estatísticas Rápidas -->
+<div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+    <div class="bg-white rounded-lg p-4 text-center shadow-md">
+        <h4 class="text-2xl font-bold text-blue-600">{{ total_produtos|default:"0" }}</h4>
+        <p class="text-gray-600">Produtos Cadastrados</p>
+    </div>
+    
+    <div class="bg-white rounded-lg p-4 text-center shadow-md">
+        <h4 class="text-2xl font-bold text-green-600">{{ produtos_em_estoque|default:"0" }}</h4>
+        <p class="text-gray-600">Em Estoque</p>
+    </div>
+    
+    <div class="bg-white rounded-lg p-4 text-center shadow-md">
+        <h4 class="text-2xl font-bold text-yellow-600">{{ produtos_baixo_estoque|default:"0" }}</h4>
+        <p class="text-gray-600">Baixo Estoque</p>
+    </div>
+    
+    <div class="bg-white rounded-lg p-4 text-center shadow-md">
+        <h4 class="text-2xl font-bold text-red-600">{{ produtos_sem_estoque|default:"0" }}</h4>
+        <p class="text-gray-600">Sem Estoque</p>
     </div>
 </div>
 

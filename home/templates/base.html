@@ -5,51 +5,35 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     {% block grafico %}
-    
-    {% endblock  %}
+    {% endblock %}
 
-    <!-- Flowbtie -->
+    <!-- Flowbite -->
     <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
 
     <!-- Tailwind CSS -->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Titulo da pagina -->
-    <title>{% block title %} {% endblock %}</title>
+    <!-- Título da página -->
+    <title>{% block title %}{% endblock %}</title>
 
     <!-- Ícone -->
     <link rel="shortcut icon" href="https://www.djangoproject.com/favicon.ico">
-
-
 </head>
-<body class="bg-gray-100">
+<body class="bg-gray-100 text-gray-900">
 
     <!-- Navbar -->
     {% include "_nav.html" %}
 
-    <!-- Sidebar Fixa -->
-    {% include "_sidebar.html" %}
-
-    <!-- Container principal com sidebar fixa à esquerda e conteúdo à direita -->
-    <div class="flex">
-        <!-- Espaço reservado para a sidebar (64px = w-64) -->
-        <div class="w-64 hidden sm:block "></div>
-
-        <!-- Conteúdo principal -->
-        <main class="flex-1 p-4 md:flex">
-            <div class="p-4 w-full ">
-                   {% block voltar %} {% endblock  %}
-                <div class="p-4 border-2 border-gray-500 border-dashed rounded-lg ">
-                    {% block content %}
-                    {% endblock %}
-                </div>
-            </div>
-        </main>
+    <!-- Conteúdo principal dentro do container centralizado -->
+    <div class="pt-16 px-4">
+        <div class="max-w-screen-xl mx-auto">
+            {% block voltar %}{% endblock %}
+            {% block content %}{% endblock %}
+        </div>
     </div>
 
 </body>
-
 </html>

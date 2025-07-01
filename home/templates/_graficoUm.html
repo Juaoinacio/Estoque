@@ -3,94 +3,95 @@
 </figure>
 
 <script>
-
-    Highcharts.chart('container', {
-        chart: {
-            type: 'spline',
-            backgroundColor: '#1e2838', // fundo escuro
+Highcharts.chart('container', {
+    chart: {
+        type: 'spline',
+        backgroundColor: '#ffffff', // fundo branco
+        style: {
+            fontFamily: 'sans-serif'
+        }
+    },
+    title: {
+        text: 'Entradas e Saídas Mensais',
+        style: {
+            color: '#1f2937' // texto escuro
+        }
+    },
+    xAxis: {
+        categories: [
+            'Jan', 'Feb', 'Mar', 'Abr', 'Mai', 'Jun',
+            'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'
+        ],
+        accessibility: {
+            description: 'Meses do ano'
+        },
+        labels: {
             style: {
-                fontFamily: 'sans-serif'
+                color: '#1f2937' // texto escuro
             }
         },
+        lineColor: '#ccc'
+    },
+    yAxis: {
         title: {
-            text: 'Entradas e Saidas mensais',
+            text: 'Quantidade',
             style: {
-                color: '#d1d5dc'
+                color: '#1f2937'
             }
         },
-        xAxis: {
-            categories: [
-                'Jan', 'Feb', 'Mar', 'Abr', 'Mai', 'Jun',
-                'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Des'
-            ],
-            accessibility: {
-                description: 'Messes do ano'
-            },
-            labels: {
-                style: {
-                    color: '#d1d5dc'
-                }
-            },
-            lineColor: '#888'
-        },
-        yAxis: {
-            title: {
-                text: 'Quantidade',
-                style: {
-                    color: '#d1d5dc'
-                }
-            },
-            labels: {
-                format: '{value}',
-                style: {
-                    color: '#d1d5dc'
-                }
-            },
-            gridLineColor: '#444'
-        },
-        tooltip: {
-            backgroundColor: '#333333',
-            borderColor: '#888',
+        labels: {
+            format: '{value}',
             style: {
-                color: '#FFFFFF'
-            },
-            crosshairs: true,
-            shared: true
-        },
-        plotOptions: {
-            series: {
-                label: {
-                    enabled: false
-                }
-            },
-            spline: {
-                marker: {
-                    radius: 4,
-                    lineColor: '#FFFFFF',
-                    lineWidth: 1
-                }
+                color: '#1f2937'
             }
         },
-        legend: {
-            itemStyle: {
-                color: '#FFFFFF'
+        gridLineColor: '#eee'
+    },
+    tooltip: {
+        backgroundColor: '#ffffff',
+        borderColor: '#ccc',
+        style: {
+            color: '#1f2937'
+        },
+        crosshairs: true,
+        shared: true
+    },
+    plotOptions: {
+        series: {
+            label: {
+                enabled: false
             }
         },
-        series: [{
-            name: 'Saidas',
-            color: "#13d172",
+        spline: {
+            marker: {
+                radius: 4,
+                lineColor: '#1f2937',
+                lineWidth: 1
+            }
+        }
+    },
+    legend: {
+        itemStyle: {
+            color: '#1f2937'
+        }
+    },
+    series: [
+        {
+            name: 'Saídas',
+            color: '#ef4444',
             marker: {
                 symbol: 'square'
             },
             data: []
-
-        }, {
+        },
+        {
             name: 'Entradas',
+            color: '#3b82f6',
             marker: {
                 symbol: 'square'
             },
             data: []
-    }]
+        }
+    ]
 });
-
 </script>
