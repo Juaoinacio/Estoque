@@ -1,3 +1,4 @@
 from django.contrib import admin
+from notaFiscal.models import NotaFiscal
 
-# Register your models here.
+admin.site.register(NotaFiscal)
